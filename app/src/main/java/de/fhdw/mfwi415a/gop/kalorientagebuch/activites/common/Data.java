@@ -1,7 +1,7 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common;
 
 /**
- * Created by joel on 05.03.18.
+ * Created by Joel Hohmann on 05.03.18.
  */
 
 import android.app.Activity;
