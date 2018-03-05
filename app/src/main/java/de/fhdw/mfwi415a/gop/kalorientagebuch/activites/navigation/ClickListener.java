@@ -18,14 +18,14 @@ public class ClickListener implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ) {
+/*        switch ( view.getId() ) {
             case R.id.idExampleButton:
                 mApplicationLogic.onExampleButtonClicked();
                 break;
             case R.id.idExampleTextview:
                 mApplicationLogic.onExampleTextViewClicked();
                 break;
-        }
+        }*/
     }
 
 }
