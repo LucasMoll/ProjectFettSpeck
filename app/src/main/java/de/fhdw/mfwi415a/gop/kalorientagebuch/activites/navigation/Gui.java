@@ -16,8 +16,8 @@ public class Gui {
     public Gui (Init activity) {
         activity.setContentView(R.layout.activity_navigation);
 
-        mExampleButton = (Button) activity.findViewById(R.id.idExampleButton);
-        mExampleTextView = (TextView) activity.findViewById(R.id.idExampleTextview);
+        //mExampleButton = (Button) activity.findViewById(R.id.idExampleButton);
+        //mExampleTextView = (TextView) activity.findViewById(R.id.idExampleTextview);
     }
 
     // getter to access views
