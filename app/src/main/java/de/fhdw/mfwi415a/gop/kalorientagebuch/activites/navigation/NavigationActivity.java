@@ -1,8 +1,11 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.NavigationFragment;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,20 +85,20 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+fragmentManager.beginTransaction().replace(R.id.content_frame, new NavigationFragment());
+        } else if (id == R.id.nav_statistik) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_menues) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_lebensmittel) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_profil) {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
