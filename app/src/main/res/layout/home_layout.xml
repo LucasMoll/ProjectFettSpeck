@@ -1,13 +1,60 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.HomeFragment">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home Fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/home_usedBar"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:background="@color/accent_color"
+                    android:gravity="center|left"
+                    android:paddingLeft="@dimen/activity_vertical_margin"
+                    android:text="140 kcal"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/white_color"
+                    android:singleLine="true"
+
+                    />
+
+                <TextView
+                    android:id="@+id/home_unusedBar"
+                    android:layout_width="220dp"
+                    android:layout_height="35dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:gravity="center|right"
+                    android:paddingRight="@dimen/activity_vertical_margin"
+                    android:text="220 kcal"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/white_color"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5"/>
+
+
+    </LinearLayout>
+
