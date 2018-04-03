@@ -20,7 +20,7 @@ public class StatistikFragment extends android.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.statistik_acitivty, container, false);
+        myView = inflater.inflate(R.layout.statistik_layout, container, false);
         return myView;
     }
 }

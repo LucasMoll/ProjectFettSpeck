@@ -18,6 +18,9 @@ import android.view.MenuItem;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.HomeFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.LebenbsmittelFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuesFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.ProfilFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
 public class NavigationActivity extends AppCompatActivity
@@ -100,15 +103,15 @@ public class NavigationActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_menues:
-
+                fragment = new MenuesFragment();
                 break;
 
             case R.id.nav_lebensmittel:
-
+                fragment = new LebenbsmittelFragment();
                 break;
 
             case R.id.nav_profil:
-
+                fragment = new ProfilFragment();
                 break;
 
             default: break;
@@ -116,8 +119,7 @@ public class NavigationActivity extends AppCompatActivity
         }
 
 
-        if (fragment!= null){
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();}
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
