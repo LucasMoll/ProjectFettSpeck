@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.MyCursorAdapter;
+//import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.MyCursorAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Nahrungsmittel;
 
 /**
@@ -39,6 +39,9 @@ public class LebenbsmittelFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.lebensmittel_layout, container, false);
+
+        getActivity().setTitle("Lebensmittel");
+
         mActivity = getActivity();
         mContext = mActivity;
 

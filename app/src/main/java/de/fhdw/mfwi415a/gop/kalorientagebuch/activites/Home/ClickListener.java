@@ -15,6 +15,12 @@ public class ClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        switch (view.getId())
+        {
+            case R.id.home_plus_fab:
+                mApplicationLogic.onPlusFabClicked();
+        }
+
 
     }
 }

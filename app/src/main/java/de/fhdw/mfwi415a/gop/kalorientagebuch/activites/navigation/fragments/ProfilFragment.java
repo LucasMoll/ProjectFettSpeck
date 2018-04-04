@@ -21,6 +21,7 @@ public class ProfilFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.profil_layout, container, false);
+        getActivity().setTitle("Profil");
         return myView;
     }
 }

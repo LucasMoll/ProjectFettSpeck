@@ -21,6 +21,7 @@ public class StatistikFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.statistik_layout, container, false);
+        getActivity().setTitle("Statistik");
         return myView;
     }
 }
