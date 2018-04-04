@@ -8,4 +8,31 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Gerneral
+    <string name="app_name">LayoutSettings</string>
+    <string name="title_activity_einstellungen">Einstellungen</string>
+
+    //Preferences xml
+
+    //Name
+    <string name="preference_name_title">Dein Name</string>
+    <string name="preference_name_key">pref_name</string>
+    <string name="preference_name_default">Dein Name</string>
+
+    //Tagesthöchstsatz in kcal
+    <string name="preference_kcal_title">Tagesthöchstsatz in kcal</string>
+    <string name="preference_kcal_key">pref_kcal</string>
+    <string name="preference_kcal_default">1500</string>
+
+    //Standardeinheiten
+    <string name="preference_Standardeinheiten_def_title">Standardeinheiten</string>
+    <string name="preference_Standardeinheiten_title">Neue Einheit</string>
+    <string name="preference_Standardeinheiten_key">pref_stand</string>
+    <string name="preference_Standardeinheiten_default">1500,390238,19292</string>
+
+    //Gramm
+    <string name="preference_Standardeinheit_title_gramm">Gramm</string>
+    <string name="preference_Standardeinheit_key_gramm">pref_gramm</string>
+
 </resources>
