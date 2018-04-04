@@ -4,10 +4,11 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 
 public class EinstellungenActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
