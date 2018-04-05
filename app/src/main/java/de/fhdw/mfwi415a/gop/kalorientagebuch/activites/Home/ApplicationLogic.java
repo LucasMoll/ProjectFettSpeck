@@ -21,8 +21,8 @@ public class ApplicationLogic {
      ******************
      */
 
-    private int usedLimit = 1736;
-    private int DailyLimit = 3000;
+    private int usedLimit = 2000;
+    private int DailyLimit = 1300;
 
      /*
      ******************
@@ -41,14 +41,7 @@ public class ApplicationLogic {
     }
 
     private void initGui() {
-        int value;
 
-        // initialize view attributes
-
-        // mGui.getSeekBar().setMax(0xFF);
-        // mGui.getSeekBar().setProgress(mData.getValueOfSelectedColorPart());
-
-        // ...
     }
 
     private void initListener() {
@@ -79,29 +72,13 @@ public class ApplicationLogic {
     }
 
         public void onActivityReturned(int requestCode, int resultCode, Intent data) {
-       /* int value;
-        long valueLong;
 
-        if ( resultCode == Activity.RESULT_OK ) {
-            switch ( requestCode ) {
-                case Constants.REQUESTCODEONE:
-                    value = data.getIntExtra(Constants.KEYEXAMPLEINTVALUE, mData.getExampleIntValue());
-                    // set data
-                    // set gui
-                    break;
-                case Constants.REQUESTCODETWO:
-                    valueLong = data.getLongExtra(Constants.KEYEXAMPLELONGVALUE, mData.getExampleLongValue());
-                    // set data
-                    // set gui
-                    break;
-            }
-        }*/
     }
 
 
 
     public void onPlusFabClicked() {
-        //mGui.setSnackbar("Replace with your own action");
+        mGui.setSnackbar("Replace with your own action");
         changeFragment();
 
     }

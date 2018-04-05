@@ -21,11 +21,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activites.Home.Init">
 
 
-
-        </activity>
     </application>
 
 </manifest>
