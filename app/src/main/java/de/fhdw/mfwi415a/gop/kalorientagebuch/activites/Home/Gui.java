@@ -4,6 +4,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
@@ -15,6 +16,7 @@ public class Gui {
     private double mDensity;
     private FloatingActionButton mPlus;
     private View mView;
+    private ListView mListView;
 
    /* public Gui (Init activity) {
         activity.setContentView(R.layout.home_layout);
@@ -29,6 +31,7 @@ public class Gui {
         mUsedBar = (TextView) myView.findViewById(R.id.home_usedBar);
         mUnusedBar = (TextView) myView.findViewById(R.id.home_unusedBar);
         mPlus = (FloatingActionButton) myView.findViewById(R.id.home_plus_fab);
+        mListView = (ListView) myView.findViewById(R.id.home_listView);
         mDensity = i;
         mView = myView;
     }
@@ -66,7 +69,6 @@ public FloatingActionButton getmHomePlusFab(){
         mUnusedBar.setLayoutParams(new LinearLayout.LayoutParams((int) size, (int) size_height));
 
         mUnusedBar.setText(text);
-
     }
 
 

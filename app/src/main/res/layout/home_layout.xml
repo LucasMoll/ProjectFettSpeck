@@ -51,6 +51,7 @@
 
         </RelativeLayout>
         <ListView
+            android:id="@+id/home_listView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="5"/>
