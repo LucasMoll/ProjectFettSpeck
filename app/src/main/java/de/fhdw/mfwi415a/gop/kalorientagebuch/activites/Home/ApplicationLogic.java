@@ -1,47 +1,44 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Home;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 
 
-
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
 
 public class ApplicationLogic {
 
 
-     /*
-     ******************
-     */
-
-    private int usedLimit = 2000;
-    private int DailyLimit = 1300;
-
-     /*
-     ******************
-      */
-
-
+    private int usedLimit;
+    private int DailyLimit;
     private Gui mGui;
     private Context mContext;
 
-    public ApplicationLogic (Gui gui, Context context) {
+    public ApplicationLogic(Gui gui, Context context) {
         mGui = gui;
         mContext = context;
         initGui();
         initListener();
-        changeBarValue();
     }
 
     private void initGui() {
-
+        DailyLimit = getDailyMax();
+        usedLimit = getUsedLimit();
+        showGerichteOfDay();
+        changeBarValue();
+        setLimitText();
     }
 
     private void initListener() {
@@ -51,47 +48,119 @@ public class ApplicationLogic {
         mGui.getmHomePlusFab().setOnClickListener(cl);
     }
 
-    public void onExampleButtonClicked() {
-    }
-
-    public void onExampleTextViewClicked() {
-    }
-
-    public void onSeekBarChanged(int value) {
-
-    }
+    private void changeBarValue() {
 
 
-
-    public void changeBarValue() {
-
-
-        double usedSize = (double) usedLimit/DailyLimit*360;
-        mGui.setmUsedBarSizeAndText(usedSize,  (usedLimit + " kcal"));
+        double usedSize = (double) usedLimit / DailyLimit * 360;
+        mGui.setmUsedBarSizeAndText(usedSize, (usedLimit + " kcal"));
         mGui.setmUnusedBarSizeAndText(360 - usedSize, (DailyLimit - usedLimit) + " kcal");
     }
 
-        public void onActivityReturned(int requestCode, int resultCode, Intent data) {
+    private void setLimitText()
+    {
+        String text;
+        if (usedLimit<DailyLimit)
+        {
+            text = "Du darfst heute noch " + (DailyLimit-usedLimit) + " kcal zur dir nehmen, bevor du dein Ziel überschreitest.";
+        }else if (usedLimit>DailyLimit)
+        {
+            text = "Du hast dein Ziel heute leider schon um "+ (usedLimit-DailyLimit) +" kcal überschritten!";
+        }
+        else { text = "Du hast dein Ziel erreicht!";}
 
+        mGui.getmMotivationText().setText(text);
     }
 
+    public void onActivityReturned(int requestCode, int resultCode, Intent data) {
+
+    }
 
 
     public void onPlusFabClicked() {
-        mGui.setSnackbar("Replace with your own action");
-        changeFragment();
+        //mGui.setSnackbar(getCurrentDate());
+        mGui.setSnackbar(String.valueOf(getDailyMax()));
+        //changeFragment();
 
     }
 
-    public void changeFragment(){
+    private void changeFragment() {
         Activity activity = (Activity) mContext;
         FragmentManager fragmentManager = activity.getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new StatistikFragment()).commit();
     }
 
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd.MM.yyyy");
+        String strDate = mdformat.format(calendar.getTime());
+        return strDate;
+    }
 
+    private int getDailyMax() {
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
 
+        Cursor cursor = mDbHelper.getDailyMax();
+        ArrayList<Integer> max = new ArrayList<Integer>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
 
+        {
+            max.add(cursor.getInt(cursor.getColumnIndex("Tageslimit")));
+            cursor.moveToNext();
+        }
 
+        cursor.close();
+
+        return max.get(0);
+    }
+
+    private int getUsedLimit() {
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getUsedLimitOfDay("15.01.2018");
+        ArrayList<Integer> usedLimit = new ArrayList<Integer>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            usedLimit.add(cursor.getInt(cursor.getColumnIndex("SUM(SUM)")));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return usedLimit.get(0);
+    }
+
+    private void showGerichteOfDay(){
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getGerichteOfDay("15.01.2018");
+
+        ArrayList<String> gerichte = new ArrayList<String>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            Log.d("GERICHTE", "wird ausgeführt");
+            gerichte.add(cursor.getString(cursor.getColumnIndex("KT_Bezeichnung")) +": "+ cursor.getString(cursor.getColumnIndex("GerichtName")) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("SUM")) +" kcal)"));
+            cursor.moveToNext();
+        }
+
+        setmListViewText(gerichte);
+        cursor.close();
+
+    }
+
+    private void setmListViewText(ArrayList<String> arrayList){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, arrayList );
+        mGui.getmListView().setAdapter(arrayAdapter);
+    }
 
 }

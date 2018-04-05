@@ -80,6 +80,51 @@ public class DataAdapter {
         }
     }
 
+    public Cursor getDailyMax() {
+        try {
+            String sql = "select Einstellungen.Tageslimit from Einstellungen";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToNext();
+            }
+            return mCur;
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getDailyMax >>" + mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getGerichteOfDay(String s) {
+        try {
+            String sql = "select KT_Bezeichnung, GerichtName, SUM from (select GerichtID, KT_Bezeichnung, KT_ID from KTEintrag_Gericht inner join (select ID as KT_ID, Bezeichnung as KT_Bezeichnung, ID from KTEintrag where KTEintrag.Zeitpunkt = \"" + s + "\")) q1 left join (select  Gericht_ID, GerichtName, sum(Lebensmittel_Einheit.Menge*Entsprechung) as SUM from Lebensmittel_Einheit ,(select Lebensmittel_Einheit.LebensmittelID as subquer2_LebensmittelID, (subquery1_Menge*1.0/Lebensmittel_Einheit.Menge*1.0) as Entsprechung,Gericht.Bezeichnung as GerichtName, Gericht.ID as Gericht_ID from Lebensmittel_Einheit, Gericht inner join (select LebensmittelID as subquery1_LebensmittelID, EinheitID as subquer1_EinheitID, Menge as subquery1_Menge, GerichtID from Lebensmittel_Gericht) where subquery1_LebensmittelID = LebensmittelID AND (Lebensmittel_Einheit.EinheitID = subquer1_EinheitID) AND Gericht.ID= GerichtID) where subquer2_LebensmittelID = Lebensmittel_Einheit.LebensmittelID AND Lebensmittel_Einheit.EinheitID = 1)q2 ON q1.GerichtID = q2.Gericht_ID order by KT_ID";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToNext();
+            }
+            return mCur;
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getGerichteOfDay >>" + mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getUsedLimitOfDay(String s) {
+        try {
+            String sql = "select SUM(SUM) from (select GerichtID, KT_Bezeichnung, KT_ID from KTEintrag_Gericht inner join (select ID as KT_ID, Bezeichnung as KT_Bezeichnung, ID from KTEintrag where KTEintrag.Zeitpunkt = \"" + s + "\")) q1 left join (select  Gericht_ID, GerichtName, sum(Lebensmittel_Einheit.Menge*Entsprechung) as SUM from Lebensmittel_Einheit ,(select Lebensmittel_Einheit.LebensmittelID as subquer2_LebensmittelID, (subquery1_Menge*1.0/Lebensmittel_Einheit.Menge*1.0) as Entsprechung,Gericht.Bezeichnung as GerichtName, Gericht.ID as Gericht_ID from Lebensmittel_Einheit, Gericht inner join (select LebensmittelID as subquery1_LebensmittelID, EinheitID as subquer1_EinheitID, Menge as subquery1_Menge, GerichtID from Lebensmittel_Gericht) where subquery1_LebensmittelID = LebensmittelID AND (Lebensmittel_Einheit.EinheitID = subquer1_EinheitID) AND Gericht.ID= GerichtID) where subquer2_LebensmittelID = Lebensmittel_Einheit.LebensmittelID AND Lebensmittel_Einheit.EinheitID = 1)q2 ON q1.GerichtID = q2.Gericht_ID";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToNext();
+            }
+            return mCur;
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getGerichteOfDay >>" + mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
     public Cursor getData(String table, String[] columns, String selection, String having, String orderby, String limit) {
         try {
             Cursor mCur = mDb.query(table,columns,selection,null,"",having, orderby, limit);
