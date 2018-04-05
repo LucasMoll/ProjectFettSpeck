@@ -13,23 +13,15 @@
     //Preferences xml
 
     //Name
-    <string name="preference_name_title">Dein Name</string>
-    <string name="preference_name_key">pref_name</string>
-    <string name="preference_name_default">Dein Name</string>
+    <string name="button_name">Dein Name</string>
 
     //Tagesthöchstsatz in kcal
-    <string name="preference_kcal_title">Tagesthöchstsatz in kcal</string>
-    <string name="preference_kcal_key">pref_kcal</string>
-    <string name="preference_kcal_default">1500</string>
+    <string name="button_hoechstsatz">Tagesthöchstsatz in kcal</string>
 
     //Standardeinheiten
-    <string name="preference_Standardeinheiten_def_title">Standardeinheiten</string>
-    <string name="preference_Standardeinheiten_title">Neue Einheit</string>
-    <string name="preference_Standardeinheiten_key">pref_stand</string>
-    <string name="preference_Standardeinheiten_default">1500,390238,19292</string>
+    <string name="button_neueEinheit">Neue Einheit</string>
+    <string name="text_standardeinheiten">Standardeinheiten</string>
+    <string name="button_alleEinheiten">Alle Einheiten</string>
 
-    //Gramm
-    <string name="preference_Standardeinheit_title_gramm">Gramm</string>
-    <string name="preference_Standardeinheit_key_gramm">pref_gramm</string>
 
 </resources>
