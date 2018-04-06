@@ -21,6 +21,7 @@ public class MenuesFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.menues_layout, container, false);
+        getActivity().setTitle("Menüs");
         return myView;
     }
 }

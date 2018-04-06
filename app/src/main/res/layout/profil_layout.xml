@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_hoechstsatz"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil XML"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_name"
+        android:text="@string/button_hoechstsatz" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/button_name" />
+
+    <TextView
+        android:id="@+id/text_standardeinheiten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_hoechstsatz"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:text="@string/text_standardeinheiten" />
+
+    <Button
+        android:id="@+id/button_neueEinheit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/text_standardeinheiten"
+        android:text="@string/button_neueEinheit" />
+
+    <Button
+        android:id="@+id/button_alleEinheiten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button_neueEinheit"
+        android:text="@string/button_alleEinheiten" />
+
+    </RelativeLayout>

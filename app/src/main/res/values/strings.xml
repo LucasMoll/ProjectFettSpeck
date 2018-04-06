@@ -9,7 +9,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+<<<<<<< HEAD
     <!-- Menu detail -->
     <string name="deleteMenu">Menü Löschen</string>
+=======
+
+    //Preferences xml
+
+    //Name
+    <string name="button_name">Dein Name</string>
+
+    //Tagesthöchstsatz in kcal
+    <string name="button_hoechstsatz">Tagesthöchstsatz in kcal</string>
+
+    //Standardeinheiten
+    <string name="button_neueEinheit">Neue Einheit</string>
+    <string name="text_standardeinheiten">Standardeinheiten</string>
+    <string name="button_alleEinheiten">Alle Einheiten</string>
+
+>>>>>>> 0a639252d8593208d1bc595b699d4694aeb871cc
 
 </resources>
