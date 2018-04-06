@@ -11,4 +11,6 @@
     <color name="background_color">#ffececec</color>
     <color name="accent_color">#ff4269aa</color>
     <color name="white_color">#ffffff</color>
+
+    <color name="horizontalSeparator">#000000</color>
 </resources>
