@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 
@@ -116,24 +115,25 @@ public class ApplicationLogic {
         return max.get(0);
     }
 
-    private int getUsedLimit() {
+
+    private int getUsedLimit(){
+        int i=0;
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        Cursor cursor = mDbHelper.getUsedLimitOfDay("15.01.2018");
-        ArrayList<Integer> usedLimit = new ArrayList<Integer>();
+        Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
+
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
 
         {
-            usedLimit.add(cursor.getInt(cursor.getColumnIndex("SUM(SUM)")));
+           i+= cursor.getInt(cursor.getColumnIndex("SUM"));
             cursor.moveToNext();
         }
-
         cursor.close();
+        return i;
 
-        return usedLimit.get(0);
     }
 
     private void showGerichteOfDay(){
@@ -141,14 +141,13 @@ public class ApplicationLogic {
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        Cursor cursor = mDbHelper.getGerichteOfDay("15.01.2018");
+        Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
 
         ArrayList<String> gerichte = new ArrayList<String>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
 
         {
-            Log.d("GERICHTE", "wird ausgeführt");
             gerichte.add(cursor.getString(cursor.getColumnIndex("KT_Bezeichnung")) +": "+ cursor.getString(cursor.getColumnIndex("GerichtName")) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("SUM")) +" kcal)"));
             cursor.moveToNext();
         }

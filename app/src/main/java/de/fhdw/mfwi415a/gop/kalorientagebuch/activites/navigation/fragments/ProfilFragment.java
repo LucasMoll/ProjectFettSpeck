@@ -29,10 +29,10 @@ public class ProfilFragment extends android.app.Fragment {
     private ApplicationLogic mApplicationLogic;
 
 
-    @Nullable
+   /* @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.profil_layout, container, false);
+   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        /*myView = inflater.inflate(R.layout.profil_layout, container, false);
         getActivity().setTitle("Profil");
         mGui = new Gui(myView);
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
@@ -57,4 +57,7 @@ public class ProfilFragment extends android.app.Fragment {
         dialog.show(getSupportFragmentManager(), "Dialog");
 
     }
+}
+*/
+
 }
