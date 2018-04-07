@@ -1,6 +1,7 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Home;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddKTitemFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
 
@@ -66,7 +68,7 @@ public class ApplicationLogic {
     public void onListItemClicked(int i){
         String s = String.valueOf(mIndexList.get(i));
         setSnackbar(s);
-//TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben
+//TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben (Bundle: "KT_ID",mIndexList.get(i))
     }
 
     private void setLimitText()
@@ -90,18 +92,19 @@ public class ApplicationLogic {
 
 
     public void onPlusFabClicked() {
-        changeFragment();
+        changeFragment(new AddKTitemFragment(), 0);
 
     }
 
-    private void changeFragment() {
+    private void changeFragment(Fragment f, int i) {
         Activity activity = (Activity) mContext;
-        StatistikFragment statistikFragment = new StatistikFragment();
+
         Bundle bundle = new Bundle();
-        bundle.putInt("ID", 1);
-        statistikFragment.setArguments(bundle);
+        bundle.putInt("KT_ID", i);
+        f.setArguments(bundle);
+
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, statistikFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
     }
 
     private String getCurrentDate() {

@@ -110,6 +110,22 @@ public class DataAdapter {
         }
     }
 
+    public Cursor getAllGerichte()
+    {
+        try {
+            String sql = "select * from Gericht order by Gericht.Bezeichnung";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur != null) {
+                mCur.moveToNext();
+            }
+            return mCur;
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getGerichte >>" + mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
 
     public Cursor getData(String table, String[] columns, String selection, String having, String orderby, String limit) {
         try {

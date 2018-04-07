@@ -24,14 +24,6 @@ public class Gui {
     private View mView;
     private ListView mListView;
 
-   /* public Gui (Init activity) {
-        activity.setContentView(R.layout.home_layout);
-
-        mUsedBar = (TextView) activity.findViewById(R.id.home_usedBar);
-        mUnusedBar = (TextView) activity.findViewById(R.id.home_unusedBar);
-
-
-    }*/
 
     public Gui(View myView, double i) {
         mUsedBar = (TextView) myView.findViewById(R.id.home_usedBar);

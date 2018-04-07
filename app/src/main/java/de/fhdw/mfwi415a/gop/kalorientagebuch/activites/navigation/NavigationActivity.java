@@ -40,7 +40,8 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();
+        if (savedInstanceState == null){
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();}
     }
 
     @Override
