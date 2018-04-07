@@ -46,9 +46,9 @@ public class Gui {
 
     // getter to access views
 
-public FloatingActionButton getmHomePlusFab(){
+    public FloatingActionButton getmHomePlusFab() {
         return mPlus;
-}
+    }
 
     public ListView getmListView() {
         return mListView;
@@ -87,8 +87,7 @@ public FloatingActionButton getmHomePlusFab(){
     }
 
 
-    public void setSnackbar(String text)
-    {
+    public void setSnackbar(String text) {
         Snackbar.make(mView, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }

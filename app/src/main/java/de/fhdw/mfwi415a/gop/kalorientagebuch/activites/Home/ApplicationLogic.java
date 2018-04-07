@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 
@@ -42,9 +44,13 @@ public class ApplicationLogic {
 
     private void initListener() {
         ClickListener cl;
+        OnItemClickListener ocl;
+
+        ocl = new OnItemClickListener();
 
         cl = new ClickListener(this);
         mGui.getmHomePlusFab().setOnClickListener(cl);
+        mGui.getmListView().setOnClickListener(ocl);
     }
 
     private void changeBarValue() {
@@ -76,16 +82,18 @@ public class ApplicationLogic {
 
 
     public void onPlusFabClicked() {
-        //mGui.setSnackbar(getCurrentDate());
-        mGui.setSnackbar(String.valueOf(getDailyMax()));
-        //changeFragment();
+        changeFragment();
 
     }
 
     private void changeFragment() {
         Activity activity = (Activity) mContext;
+        StatistikFragment statistikFragment = new StatistikFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("ID", 1);
+        statistikFragment.setArguments(bundle);
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new StatistikFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, statistikFragment).commit();
     }
 
     private String getCurrentDate() {
