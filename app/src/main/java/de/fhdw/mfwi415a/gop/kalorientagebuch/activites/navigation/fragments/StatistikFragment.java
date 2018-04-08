@@ -1,5 +1,6 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ public class StatistikFragment extends android.app.Fragment {
     View myView;
 
 
+    @SuppressLint("NewApi")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
