@@ -9,15 +9,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<<<<<<< HEAD
     <!-- Menu detail -->
     <string name="deleteMenu">Menü Löschen</string>
-=======
-
-    <!-- Menu detail -->
-    <string name="deleteMenu">Menü Löschen</string>
-
->>>>>>> 2ade67894bae3f52aefed8490945cfa423f2d6f0
 
     //Preferences xml
 
@@ -32,8 +25,4 @@
     <string name="text_standardeinheiten">Standardeinheiten</string>
     <string name="button_alleEinheiten">Alle Einheiten</string>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2ade67894bae3f52aefed8490945cfa423f2d6f0
 </resources>

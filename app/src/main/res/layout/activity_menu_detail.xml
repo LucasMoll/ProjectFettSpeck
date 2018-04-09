@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/LwMenuEntries"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        android:id="@+id/LwMenuEntries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalSeparator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/horizontalSeparator"
-            style="@style/horizontalDivider"
+    <View
+        android:id="@+id/horizontalSeparator"
+        style="@style/horizontalDivider"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/LblMenuTotalCalories"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
 
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@id/LwMenuEntries"/>
+    <TextView
+        android:id="@+id/LblMenuTotalCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Total Calories"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/fab_add_ingredient"
+        app:layout_constraintRight_toRightOf="parent" />
 
-        <TextView
-            android:id="@+id/LblMenuTotalCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="Total Calories"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/horizontalSeparator"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_ingredient"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_add_white_24dp"
-            android:textColor="#fff"
-            android:textSize="40sp"
-            app:backgroundTint="#00DF30"
-            app:borderWidth="0dp"
-            app:layout_constraintTop_toBottomOf="@id/LblMenuTotalCalories"/>
-
-        <View
-            android:id="@+id/horizontalSeparator2"
-            style="@style/horizontalDivider"
-
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fab_add_ingredient"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_ingredient"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_add_white_24dp"
+        android:textColor="#fff"
+        android:textSize="40sp"
+        app:backgroundTint="#00DF30"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalSeparator2"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"/>
 
 
-        <Button
-            android:id="@+id/BtnDeleteMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/deleteMenu"
-            android:textColor="#f00"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/horizontalSeparator2"/>
+    <View
+        android:id="@+id/horizontalSeparator2"
+        style="@style/horizontalDivider"
+
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/BtnDeleteMenu"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+
+    <Button
+        android:id="@+id/BtnDeleteMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/deleteMenu"
+        android:textColor="#f00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
