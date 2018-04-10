@@ -59,5 +59,10 @@ public class MenuRowAdapter extends ArrayAdapter<Nahrungsmittel> {
 
         return vi;
     }
+
+    @Override
+    public int getCount() {
+        return ingredients == null ? 0 : ingredients.size();
+    }
 }
 

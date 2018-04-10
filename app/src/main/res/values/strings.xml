@@ -16,6 +16,9 @@
 
     //Name
     <string name="button_name">Dein Name</string>
+    <string name="str_save">Speichern</string>
+    <string name="str_duplicate">Duplizieren</string>
+    <string name="str_delete">Löschen</string>
 
     //Tagesthöchstsatz in kcal
     <string name="button_hoechstsatz">Tagesthöchstsatz in kcal</string>
