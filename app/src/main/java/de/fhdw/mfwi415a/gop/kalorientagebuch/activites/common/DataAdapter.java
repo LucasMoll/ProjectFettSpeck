@@ -56,7 +56,7 @@ public class DataAdapter {
     }
 
     public Cursor getAllLebensmittel() {
-            String sql = "SELECT * FROM Lebensmittel";
+            String sql = "SELECT * FROM Lebensmittel order by Bezeichnung";
             return getData(sql, "getLebensmittel");
     }
 
