@@ -51,7 +51,7 @@ public class DataAdapter {
     //getter
 
     public Cursor getAllEinheiten() {
-        String sql = "SELECT * FROM Einheit";
+        String sql = "SELECT * FROM Einheit order by Bezeichnung";
         return getData(sql, "getAllEinheiten");
     }
 
