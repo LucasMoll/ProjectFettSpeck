@@ -29,35 +29,15 @@ public class ProfilFragment extends android.app.Fragment {
     private ApplicationLogic mApplicationLogic;
 
 
-   /* @Nullable
+    @Nullable
     @Override
    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        /*myView = inflater.inflate(R.layout.profil_layout, container, false);
+        myView = inflater.inflate(R.layout.profil_layout, container, false);
         getActivity().setTitle("Profil");
         mGui = new Gui(myView);
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
         return myView;
 
-        button_name = (Button) findViewById(R.id.button_name);
-        button_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-            }
-        });
-        button_hoechstsatz = (Button) findViewById(R.id.button_hoechstsatz);
-      //  button_neueEinheit = (Button) findViewById(R.id.button_neueEinheit);
-      //  button_alleEinheiten = (Button) findViewById(R.id.button_alleEinheiten);
-
-    }
-
-    public void openDialog(){
-
-        Dialog dialog = new Dialog();
-        dialog.show(getSupportFragmentManager(), "Dialog");
-
-    }
-}
-*/
+   }
 
 }
