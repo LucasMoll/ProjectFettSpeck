@@ -52,29 +52,22 @@ public class Gui {
 
     // methods to change view attributes
 
-    public void setmUsedBarSizeAndText(double size, String text) {
-        if (size > 360) {
-            size = 360;
-        } else if (size < 0) {
-            size = 0;
-        }
-        size = size * mDensity;
-        double size_height = (double) 40 * mDensity;
-        mUsedBar.setLayoutParams(new LinearLayout.LayoutParams((int) size, (int) size_height));
+    public void setmUsedBarSizeAndText(int size, String text) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.weight = (float) size;
+        mUsedBar.setLayoutParams(params);
         mUsedBar.setText(text);
 
     }
 
-    public void setmUnusedBarSizeAndText(double size, String text) {
-        if (size > 360) {
-            size = 360;
-        } else if (size < 0) {
-            size = 0;
-        }
-        size = size * mDensity;
-        double size_height = (double) 40 * mDensity;
-        mUnusedBar.setLayoutParams(new LinearLayout.LayoutParams((int) size, (int) size_height));
+    public void setmUnusedBarSizeAndText(int size, String text) {
 
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.weight = (float) size;
+        mUnusedBar.setLayoutParams(params);
         mUnusedBar.setText(text);
     }
 

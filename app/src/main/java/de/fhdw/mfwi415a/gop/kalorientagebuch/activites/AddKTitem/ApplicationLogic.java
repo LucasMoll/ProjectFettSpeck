@@ -14,6 +14,7 @@ public class ApplicationLogic {
 
     private Gui mGui;
     private Context mContext;
+    //private
 
     public ApplicationLogic (Gui gui, Context context) {
         mGui = gui;
@@ -29,9 +30,7 @@ public class ApplicationLogic {
     }
 
     private void initListener() {
-        ClickListener cl;
-
-        cl = new ClickListener(this);
+        mGui.getmMenueListe().setOnItemClickListener(new OnItemClickListener(this));
     }
 
     private void showAllGerichte(){
@@ -59,4 +58,8 @@ public class ApplicationLogic {
         mGui.getmMenueListe().setAdapter(arrayAdapter);
     }
 
+    public void onListClicked(int i) {
+
+
+    }
 }

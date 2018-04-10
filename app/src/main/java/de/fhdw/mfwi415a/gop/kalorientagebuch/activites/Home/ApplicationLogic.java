@@ -54,11 +54,18 @@ public class ApplicationLogic {
     }
 
     private void changeBarValue() {
+        int unusedSize = 0;
 
+        if (usedLimit >= DailyLimit)
+        {
+            unusedSize = 0;
+        } else {
 
-        double usedSize = (double) usedLimit / DailyLimit * 360;
-        mGui.setmUsedBarSizeAndText(usedSize, (usedLimit + " kcal"));
-        mGui.setmUnusedBarSizeAndText(360 - usedSize, (DailyLimit - usedLimit) + " kcal");
+            unusedSize = (int) DailyLimit - usedLimit;
+        }
+
+        mGui.setmUsedBarSizeAndText(usedLimit, (usedLimit + " kcal"));
+        mGui.setmUnusedBarSizeAndText(unusedSize, (unusedSize + " kcal"));
     }
 
     private void setSnackbar(String s){
@@ -148,7 +155,7 @@ public class ApplicationLogic {
         while (!cursor.isAfterLast())
 
         {
-           i+= cursor.getInt(cursor.getColumnIndex("SUM"));
+           i+= cursor.getInt(cursor.getColumnIndex("Summe"));
             cursor.moveToNext();
         }
         cursor.close();
@@ -169,8 +176,8 @@ public class ApplicationLogic {
         while (!cursor.isAfterLast())
 
         {
-            gerichte.add(cursor.getString(cursor.getColumnIndex("KT_Bezeichnung")) +": "+ cursor.getString(cursor.getColumnIndex("GerichtName")) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("SUM")) +" kcal)"));
-            mIndexList.add(cursor.getInt(cursor.getColumnIndex("KT_ID")));
+            gerichte.add(cursor.getString(0) +": "+ cursor.getString(1) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("Summe"))) +" kcal)");
+            mIndexList.add(cursor.getInt(3));
             cursor.moveToNext();
         }
 
