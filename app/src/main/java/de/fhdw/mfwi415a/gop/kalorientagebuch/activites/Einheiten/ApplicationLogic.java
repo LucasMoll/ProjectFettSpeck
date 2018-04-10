@@ -53,7 +53,7 @@ public class ApplicationLogic {
 
         {
             mIDList.add(cursor.getInt(cursor.getColumnIndex("ID")));
-            einheiten.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
+            einheiten.add(cursor.getString(cursor.getColumnIndex("Bezeichnung"))+ " (" + cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"))+")");
             cursor.moveToNext();
         }
 
