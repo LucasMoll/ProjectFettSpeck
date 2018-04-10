@@ -25,4 +25,6 @@ public class Gui {
     public Button getmButton() {
         return mButton_alleEinheiten;
     }
+
+    public Button getmButton_neueEinheit() { return mButton_neueEinheit; }
 }

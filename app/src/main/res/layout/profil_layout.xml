@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <Button
         android:id="@+id/button_hoechstsatz"
@@ -47,5 +50,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_neueEinheit"
         android:text="@string/button_alleEinheiten" />
+
 
     </RelativeLayout>

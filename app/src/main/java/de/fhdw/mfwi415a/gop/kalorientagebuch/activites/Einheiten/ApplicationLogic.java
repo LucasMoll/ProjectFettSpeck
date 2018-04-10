@@ -13,6 +13,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.OnItemClickListener;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitenFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
@@ -80,7 +81,7 @@ public class ApplicationLogic {
 
         Bundle bundle = new Bundle();
         bundle.putInt("Einheit_ID",mIDList.get(i));
-        EinheitenFragment F = new EinheitenFragment();
+        AddEinheitFragment F = new AddEinheitFragment();
         F.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();

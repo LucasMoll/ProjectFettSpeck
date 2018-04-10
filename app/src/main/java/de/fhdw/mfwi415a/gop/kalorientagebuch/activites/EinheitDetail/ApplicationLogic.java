@@ -1,21 +1,19 @@
-package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings;
+package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.EinheitDetail;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.EinheitDetail.ClickListener;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.EinheitDetail.Gui;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitenFragment;
-
 
 public class ApplicationLogic {
 
 
-    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings.Gui mGui;
+    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.EinheitDetail.Gui mGui;
     private Context mContext;
 
 
@@ -36,11 +34,10 @@ public class ApplicationLogic {
 
     private void initListener() {
 
-        ClickListener cl;
+        de.fhdw.mfwi415a.gop.kalorientagebuch.activites.EinheitDetail.ClickListener cl;
 
         cl = new ClickListener(this);
         mGui.getmButton().setOnClickListener(cl);
-        mGui.getmButton_neueEinheit().setOnClickListener(cl);
 
 
     }
@@ -58,16 +55,5 @@ public class ApplicationLogic {
         fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
     }
 
-    public void OnButtonNeueEinheitClicked () {
 
-        Activity activity = (Activity) mContext;
-
-        Bundle bundle = new Bundle();
-        AddEinheitFragment F = new AddEinheitFragment();
-        F.setArguments(bundle);
-
-        FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
-
-    }
 }
