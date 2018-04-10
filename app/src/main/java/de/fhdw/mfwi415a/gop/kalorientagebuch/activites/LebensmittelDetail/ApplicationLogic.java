@@ -1,27 +1,18 @@
-package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Lebensmittel;
+package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.LebensmittelDetail;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
-import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.LebensmittelDetailFragment;
-//import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
 
 public class ApplicationLogic {
 
     private Gui mGui;
     private Context mContext;
-    private ArrayList<Integer> mIndexList = new ArrayList<Integer>();
 
     public ApplicationLogic (Gui gui, Context context) {
         mGui = gui;
@@ -44,7 +35,6 @@ public class ApplicationLogic {
 
         cl = new ClickListener(this);
         mGui.getmLebensmittelPlusFab().setOnClickListener(cl);
-        mGui.getListViewLebensmittel().setOnItemClickListener(new OnItemClickListener(this));
     }
 
 
@@ -69,27 +59,9 @@ public class ApplicationLogic {
         mGui.populateListView(arrayAdapter);
     }
 
-
     public void onPlusFabClicked() {
-        changeFragment(new LebensmittelDetailFragment(), 0);
+        mGui.setSnackbar("testtext inserted");
 
-    }
-
-    private void changeFragment(Fragment f, int i) {
-        Activity activity = (Activity) mContext;
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("KT_ID", i);
-        f.setArguments(bundle);
-
-        FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
-    }
-
-    public void onListItemClicked(int i){
-        String s = String.valueOf(mIndexList.get(i));
-
-//TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben (Bundle: "KT_ID",mIndexList.get(i))
     }
 
 
