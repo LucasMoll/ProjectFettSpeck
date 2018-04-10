@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddKTitem.ApplicationLogic;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddKTitem.Gui;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.ApplicationLogic;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.Gui;
 
 /**
  * Created by joel on 03.04.18.
