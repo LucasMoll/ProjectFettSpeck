@@ -1,4 +1,4 @@
-package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Lebensmittel;
+package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.LebensmittelDetail;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,10 +21,10 @@ public class Gui {
     Context mContext;
     Activity mActivity;
     ListAdapter mListAdapter;
-    private ListView mListViewLebensmittel;
+    ListView listViewLebensmittel;
     public Gui(View myView) {
         mView = myView;
-        mListViewLebensmittel = (ListView) mView.findViewById(R.id.lebensmittelListView);
+        listViewLebensmittel = (ListView) mView.findViewById(R.id.lebensmittelListView);
         mPlus = (FloatingActionButton) myView.findViewById(R.id.lebensmittel_plus_fab);
 
         //mActivity =  (Activity) (mView.getContext());
@@ -34,11 +34,10 @@ public class Gui {
     public FloatingActionButton getmLebensmittelPlusFab() {
         return mPlus;
     }
-    public ListView getListViewLebensmittel() {return mListViewLebensmittel;}
 
     public void populateListView(ArrayAdapter<String> arrayAdapter)
     {
-        mListViewLebensmittel.setAdapter(arrayAdapter);
+        listViewLebensmittel.setAdapter(arrayAdapter);
     }
 
     public void setSnackbar(String text) {

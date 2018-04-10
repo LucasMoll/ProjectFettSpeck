@@ -1,4 +1,4 @@
-package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Lebensmittel;
+package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.LebensmittelDetail;
 
 import android.view.View;
 
