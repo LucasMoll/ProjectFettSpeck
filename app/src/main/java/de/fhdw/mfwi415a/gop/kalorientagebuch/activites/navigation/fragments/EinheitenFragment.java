@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.ApplicationLogic;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.Gui;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogic;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui;
 
 public class EinheitenFragment extends android.app.Fragment {
 
