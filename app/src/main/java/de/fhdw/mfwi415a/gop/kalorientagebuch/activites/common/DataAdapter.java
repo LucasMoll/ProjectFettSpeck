@@ -51,18 +51,8 @@ public class DataAdapter {
     //getter
 
     public Cursor getAllEinheiten() {
-        try {
-            String sql = "SELECT * FROM Einheit";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                mCur.moveToNext();
-            }
-            return mCur;
-        } catch (SQLException mSQLException) {
-            Log.e(TAG, "getEinheiten >>" + mSQLException.toString());
-            throw mSQLException;
-        }
+        String sql = "SELECT * FROM Einheit";
+        return getData(sql, "getAllEinheiten");
     }
 
     public Cursor getAllLebensmittel() {
@@ -118,7 +108,6 @@ public class DataAdapter {
     public void writeData(String sqlQuery, String logName)
     {
         try {
-
             mDb.execSQL(sqlQuery);
         } catch (SQLException mSQLException) {
             Log.e(TAG, logName + " >>" + mSQLException.toString());
