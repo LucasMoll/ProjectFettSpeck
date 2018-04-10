@@ -1,5 +1,7 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,13 +10,16 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
 public class ApplicationLogic {
 
 
     private Gui mGui;
     private Context mContext;
+    private ArrayList <Integer> mIDList = new ArrayList<Integer>();
 
     public ApplicationLogic (Gui gui, Context context) {
         mGui = gui;
@@ -39,9 +44,11 @@ public class ApplicationLogic {
 
         ArrayList<String> gerichte = new ArrayList<String>();
         cursor.moveToFirst();
+        mIDList.clear();
         while (!cursor.isAfterLast())
 
         {
+            mIDList.add(cursor.getInt(cursor.getColumnIndex("ID")));
             gerichte.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
             cursor.moveToNext();
         }
@@ -63,9 +70,17 @@ public class ApplicationLogic {
 
     }
 
-    public void OnListItemClicked() {
+    public void OnListItemClicked(int i) {
 
+        Activity activity = (Activity) mContext;
 
+        Bundle bundle = new Bundle();
+        bundle.putInt("Menue_ID",mIDList.get(i));
+        MenuDetailFragment F = new MenuDetailFragment();
+        F.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
 
     }
 }

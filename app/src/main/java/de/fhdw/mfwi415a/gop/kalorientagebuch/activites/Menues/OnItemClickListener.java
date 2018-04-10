@@ -14,7 +14,7 @@ public class OnItemClickListener implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mApplicationLogic.OnListItemClicked();
+      //  mApplicationLogic.OnListItemClicked(position);
 
 }
 }
