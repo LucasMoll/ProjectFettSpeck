@@ -2,6 +2,7 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.HomeFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.LebenbsmittelFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuesFragment;
@@ -31,7 +34,6 @@ public class NavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -41,8 +43,63 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null){
+        setName(navigationView);
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();}
     }
+
+    private void setName(NavigationView navigationView) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView mName;
+        TextView mEMAIL;
+        mName = (TextView) headerView.findViewById(R.id.Name);
+        mEMAIL = (TextView) headerView.findViewById(R.id.textView);
+        mName.setText(getName());
+        mEMAIL.setText(getEMail());
+    }
+
+
+    private String getName() {
+        String s = "";
+        DataAdapter mDbHelper = new DataAdapter(this);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getName();
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            s = cursor.getString(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return s;
+
+    }
+
+    private String getEMail() {
+        String s = "";
+        DataAdapter mDbHelper = new DataAdapter(this);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getEMail();
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            s = cursor.getString(cursor.getColumnIndex("EMail"));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return s;
+
+    }
+
+
+
 
     @Override
     public void onBackPressed() {

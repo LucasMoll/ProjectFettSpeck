@@ -1,11 +1,13 @@
-package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues;
+package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten;
 
 import android.view.View;
 import android.widget.AdapterView;
 
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogic;
+
 public class OnItemClickListener implements AdapterView.OnItemClickListener {
 
-    private ApplicationLogic mApplicationLogic;
+    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogic mApplicationLogic;
 
 
     public OnItemClickListener(ApplicationLogic applicationLogic) {
@@ -15,8 +17,7 @@ public class OnItemClickListener implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      mApplicationLogic.OnListItemClicked(position);
+        mApplicationLogic.OnListItemClicked(position);
 
+    }
 }
-}
-
