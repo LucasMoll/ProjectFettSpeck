@@ -66,66 +66,41 @@ public class DataAdapter {
     }
 
     public Cursor getAllLebensmittel() {
-        try {
             String sql = "SELECT * FROM Lebensmittel";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                mCur.moveToNext();
-            }
-            return mCur;
-        } catch (SQLException mSQLException) {
-            Log.e(TAG, "getLebensmittel >>" + mSQLException.toString());
-            throw mSQLException;
-        }
+            return getData(sql, "getLebensmittel");
     }
 
     public Cursor getDailyMax() {
-        try {
             String sql = "select Einstellungen.Tageslimit from Einstellungen";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                mCur.moveToNext();
-            }
-            return mCur;
-        } catch (SQLException mSQLException) {
-            Log.e(TAG, "getDailyMax >>" + mSQLException.toString());
-            throw mSQLException;
-        }
+            return getData(sql, "getDailyMax");
     }
 
     public Cursor getGerichteOfDay(String s) {
-        try {
             String sql = "select KT_Bezeichnung, GerichtName,(Portion*SUM) as SUM , KT_ID from (select GerichtID, KT_Bezeichnung, KT_ID, Menge as Portion from KTEintrag_Gericht inner join (select ID as KT_ID, Bezeichnung as KT_Bezeichnung, ID from KTEintrag where KTEintrag.Zeitpunkt = \"" + s + "\") where KT_ID = KTEintrag_Gericht.KTEintragID) q1 left join (select  Gericht_ID, GerichtName, sum(Lebensmittel_Einheit.Menge*Entsprechung) as SUM from Lebensmittel_Einheit , (select Lebensmittel_Einheit.LebensmittelID as subquer2_LebensmittelID, (subquery1_Menge*1.0/Lebensmittel_Einheit.Menge*1.0) as Entsprechung, Gericht.Bezeichnung as GerichtName, Gericht.ID as Gericht_ID from Lebensmittel_Einheit, Gericht inner join (select LebensmittelID as subquery1_LebensmittelID, EinheitID as subquer1_EinheitID, Menge as subquery1_Menge, GerichtID from Lebensmittel_Gericht) where subquery1_LebensmittelID = LebensmittelID AND (Lebensmittel_Einheit.EinheitID = subquer1_EinheitID) AND Gericht.ID= GerichtID) where subquer2_LebensmittelID = Lebensmittel_Einheit.LebensmittelID AND  Lebensmittel_Einheit.EinheitID = 1)q2 ON q1.GerichtID = q2.Gericht_ID order by KT_ID\n";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur != null) {
-                mCur.moveToNext();
-            }
-            return mCur;
-        } catch (SQLException mSQLException) {
-            Log.e(TAG, "getGerichteOfDay >>" + mSQLException.toString());
-            throw mSQLException;
-        }
+            return getData(sql, "getGerichteofDay");
     }
 
     public Cursor getAllGerichte()
     {
-        try {
             String sql = "select * from Gericht order by Gericht.Bezeichnung";
+            return getData(sql,"getGerichte");
+    }
 
-            Cursor mCur = mDb.rawQuery(sql, null);
+
+    public Cursor getData(String sqlQuery, String logName)
+    {
+        try {
+
+            Cursor mCur = mDb.rawQuery(sqlQuery, null);
             if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
         } catch (SQLException mSQLException) {
-            Log.e(TAG, "getGerichte >>" + mSQLException.toString());
+            Log.e(TAG, logName+" >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
-
 
     public Cursor getData(String table, String[] columns, String selection, String having, String orderby, String limit) {
         try {
@@ -136,6 +111,17 @@ public class DataAdapter {
             return mCur;
         } catch (SQLException mSQLException) {
             Log.e(TAG, "getData >>" + mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public void writeData(String sqlQuery, String logName)
+    {
+        try {
+
+            mDb.execSQL(sqlQuery);
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, logName + " >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
