@@ -24,7 +24,6 @@ public class ApplicationLogic {
     private Context mContext;
     private ArrayList <Integer> mIDList = new ArrayList<Integer>();
 
-
     public ApplicationLogic (Gui gui, Context context) {
         mGui = gui;
         mContext = context;
@@ -40,7 +39,6 @@ public class ApplicationLogic {
     }
 
     private void showallEinheiten() {
-
         DataAdapter mDBHelper = new DataAdapter(mContext);
         mDBHelper.createDatabase();
         mDBHelper.open();
