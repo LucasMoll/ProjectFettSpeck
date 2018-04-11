@@ -15,10 +15,14 @@
     //Preferences xml
 
     //Name
+    <string name="text_persData">Persönliche Daten</string>
     <string name="button_name">Dein Name</string>
     <string name="str_save">Speichern</string>
     <string name="str_duplicate">Duplizieren</string>
     <string name="str_delete">Löschen</string>
+
+    //Email
+    <string name="button_email">Deine Email Adresse</string>
 
     //Tagesthöchstsatz in kcal
     <string name="button_hoechstsatz">Tagesthöchstsatz in kcal</string>
