@@ -1,6 +1,7 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
@@ -92,6 +93,17 @@ public class ApplicationLogic {
 
         changeFragment(new AddMenueFragment(), 0);
 
+    }
+
+    private void changeFragment(Fragment f, int i){
+        Activity activity = (Activity) mContext;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("Menue_ID", i);
+        f.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
     }
 
 }
