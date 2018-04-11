@@ -86,7 +86,7 @@ public class ApplicationLogic {
         Activity activity = (Activity) mContext;
 
         Bundle bundle = new Bundle();
-        bundle.putInt("Einheit_ID",mIDList.get(i));
+        bundle.putInt("Menue_ID",mIDList.get(i));
         MenuDetailFragment F = new MenuDetailFragment();
         F.setArguments(bundle);
 

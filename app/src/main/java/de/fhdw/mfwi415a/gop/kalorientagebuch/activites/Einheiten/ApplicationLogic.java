@@ -14,6 +14,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.OnItemClickListener;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddMenueFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitenFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
@@ -84,6 +85,12 @@ public class ApplicationLogic {
 
         FragmentManager fragmentManager = activity.getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
+
+    }
+
+    public void onPlusFabClicked() {
+
+        changeFragment(new AddMenueFragment(), 0);
 
     }
 
