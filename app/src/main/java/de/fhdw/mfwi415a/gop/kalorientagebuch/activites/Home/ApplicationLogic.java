@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -40,6 +41,7 @@ public class ApplicationLogic {
     private void initGui() {
         DailyLimit = getDailyMax();
         usedLimit = getUsedLimit();
+        Log.d("TEST", String.valueOf(usedLimit));
         showGerichteOfDay();
         changeBarValue();
         setLimitText();
@@ -93,9 +95,9 @@ public class ApplicationLogic {
         mGui.getmMotivationText().setText(text);
     }
 
-    public void onActivityReturned(int requestCode, int resultCode, Intent data) {
+    /*public void onActivityReturned(int requestCode, int resultCode, Intent data) {
 
-    }
+    }*/
 
 
     public void onPlusFabClicked() {
@@ -118,8 +120,7 @@ public class ApplicationLogic {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("dd.MM.yyyy");
         String strDate = mdformat.format(calendar.getTime());
-        //return strDate;
-        return "06.04.2018";
+        return strDate;
     }
 
     private int getDailyMax() {
@@ -149,7 +150,8 @@ public class ApplicationLogic {
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
+        //Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
+        Cursor cursor = mDbHelper.getGerichteOfDay("11.04.2018");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast())

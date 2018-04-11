@@ -87,6 +87,17 @@ public class DataAdapter {
             return getData(sql,"getGerichte");
     }
 
+    public Cursor getNameOfGericht( int i)
+    {
+        String sql = "select * from Gericht where ID =" + i;
+        return getData(sql,"getnameOfGericht");
+    }
+
+    public Cursor getMaxKTE_ID()
+    {
+        String sql = "select max(ID) from KTEintrag";
+        return getData(sql,"getMaxKTE_ID");
+    }
 
     public Cursor getData(String sqlQuery, String logName)
     {
