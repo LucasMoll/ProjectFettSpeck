@@ -2,6 +2,7 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten;
 
 import android.view.View;
 
+import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogic;
 
 public class ClickListener implements View.OnClickListener {
@@ -16,7 +17,8 @@ public class ClickListener implements View.OnClickListener {
     public void onClick(View view) {
 
         switch (view.getId()) {
-            //case R.id.home_plus_fab:
+            case R.id.einheiten_plus_fab:
+                mApplicationLogic.onPlusFabClicked();
         }
 
 

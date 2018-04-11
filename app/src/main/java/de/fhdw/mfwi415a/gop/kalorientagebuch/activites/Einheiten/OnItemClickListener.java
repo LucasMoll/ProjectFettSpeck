@@ -7,7 +7,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogi
 
 public class OnItemClickListener implements AdapterView.OnItemClickListener {
 
-    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ApplicationLogic mApplicationLogic;
+    private ApplicationLogic mApplicationLogic;
 
 
     public OnItemClickListener(ApplicationLogic applicationLogic) {

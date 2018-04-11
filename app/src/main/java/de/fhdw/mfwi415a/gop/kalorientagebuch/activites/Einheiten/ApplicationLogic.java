@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.OnItemClickListener;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ClickListener;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddMenueFragment;
@@ -22,7 +23,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.Menu
 public class ApplicationLogic {
 
 
-    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui mGui;
+    private Gui mGui;
     private Context mContext;
     private ArrayList <Integer> mIDList = new ArrayList<Integer>();
 
@@ -71,8 +72,11 @@ public class ApplicationLogic {
 
     private void initListener() {
 
-        mGui.getmListView().setOnItemClickListener(new OnItemClickListener(this));
+        ClickListener cl;
+        cl = new ClickListener(this);
 
+        mGui.getmListView().setOnItemClickListener(new OnItemClickListener(this));
+        mGui.getmFloat().setOnClickListener(cl);
     }
 
     public void OnListItemClicked(int i) {
@@ -91,7 +95,7 @@ public class ApplicationLogic {
 
     public void onPlusFabClicked() {
 
-        changeFragment(new AddMenueFragment(), 0);
+        changeFragment(new AddEinheitFragment(), 0);
 
     }
 
