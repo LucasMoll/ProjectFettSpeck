@@ -28,7 +28,7 @@ public class AddMenueFragment extends android.app.Fragment {
         myView = inflater.inflate(R.layout.add_menue, container, false);
         mGui = new Gui(myView);
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
-        getActivity().setTitle("Menü bearbeiten");
+        getActivity().setTitle("Menü hinzufügen");
 
         return myView;
     }

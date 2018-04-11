@@ -99,7 +99,7 @@ public class ApplicationLogic {
             Activity activity = (Activity) mContext;
 
             Bundle bundle = new Bundle();
-            bundle.putInt("KT_ID", i);
+            bundle.putInt("Menue_ID", i);
             f.setArguments(bundle);
 
             FragmentManager fragmentManager = activity.getFragmentManager();
