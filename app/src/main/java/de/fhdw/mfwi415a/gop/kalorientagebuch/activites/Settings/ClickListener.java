@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
@@ -29,11 +30,24 @@ public class ClickListener implements View.OnClickListener {
         switch (view.getId()) {
 
             case R.id.button_alleEinheiten:
-                mApplicationLogic.OnButtonClicked();
+                mApplicationLogic.alleEinheitenClicked();
                 break;
 
             case R.id.button_neueEinheit:
-                mApplicationLogic.OnButtonNeueEinheitClicked();
+                mApplicationLogic.neueEinheitHinzufuegenClicked();
+                break;
+
+            case R.id.button_name:
+                Log.d("TEST", "onSaveClicked");
+                mApplicationLogic.OnNameClicked();
+                break;
+
+            case R.id.button_email:
+                mApplicationLogic.OnEmailClicked();
+                break;
+
+            case R.id.button_hoechstsatz:
+                mApplicationLogic.OnKcalClicked();
                 break;
         }
 
