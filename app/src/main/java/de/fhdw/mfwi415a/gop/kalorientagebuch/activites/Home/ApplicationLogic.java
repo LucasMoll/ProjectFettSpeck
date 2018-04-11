@@ -113,7 +113,7 @@ public class ApplicationLogic {
         f.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag").commit();
     }
 
     private String getCurrentDate() {

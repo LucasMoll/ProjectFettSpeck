@@ -16,6 +16,7 @@ public class Gui {
     private ListView mMenueListe;
     private Button mSaveButton;
     private TextView mMenge;
+    private View mView;
 
 
 
@@ -26,7 +27,7 @@ public class Gui {
         mMenueListe = (ListView) myView.findViewById(R.id.add_kt_item_list);
         mSaveButton = (Button) myView.findViewById(R.id.add_kt_item_save);
 
-
+        mView=myView;
 
     }
 
@@ -47,5 +48,7 @@ public class Gui {
     public Button getmSaveButton() {
         return mSaveButton;
     }
+
+    public View getmView(){return mView;}
 
 }

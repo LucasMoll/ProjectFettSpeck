@@ -59,6 +59,7 @@ public class ApplicationLogic {
 
         mGui.getmSaveButton().setOnClickListener(cl);
 
+
     }
 
     private void showAllGerichte(){
@@ -201,7 +202,7 @@ public class ApplicationLogic {
 
         FragmentManager fragmentManager = activity.getFragmentManager();
 
-        FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.content_frame, f);
+        FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag");
         ft.detach(f).attach(f).commitAllowingStateLoss();
     }
 }

@@ -15,7 +15,6 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddKTitem.Gui;
 public class AddKTitemFragment extends Fragment {
 
     View myView;
-    View myDialogView;
 
     private Gui mGui;
     private ApplicationLogic mApplicationLogic;
@@ -24,7 +23,6 @@ public class AddKTitemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.add_kt_item, container, false);
-        //myDialogView = LayoutInflater.from(getActivity()).inflate(R.layout.addkt_dialog_layout, null);
         mGui = new Gui(myView);
         mApplicationLogic = new ApplicationLogic(mGui,getActivity());
         getActivity().setTitle("Eintrag hinzufügen");
