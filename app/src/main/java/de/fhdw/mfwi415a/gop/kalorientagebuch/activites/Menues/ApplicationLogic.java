@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddMenueFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
@@ -82,8 +83,16 @@ public class ApplicationLogic {
     }
 
     public void OnListItemClicked(int i) {
-        String s = String.valueOf(mIDList.get(i));
-        setSnackbar(s);
+        Activity activity = (Activity) mContext;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("Einheit_ID",mIDList.get(i));
+        MenuDetailFragment F = new MenuDetailFragment();
+        F.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
+
     }
 
         private void changeFragment(Fragment f,int i){
