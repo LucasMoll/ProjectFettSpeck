@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.*;
@@ -89,8 +90,16 @@ public class AppLogic {
         }
         cursor.close();
 
+        mDBHelper.close();
+
+        double caloriesSum = 0;
+
+        for(int i = 0; i < _ingredients.size(); i++)
+            caloriesSum += _ingredients.get(i).get_calories();
+
         MenuRowAdapter menuItemArrayAdapter = new MenuRowAdapter(mContext, R.layout.ingredient_row, _ingredients);
         mGui.getListViewIngredients().setAdapter(menuItemArrayAdapter);
+        mGui.getLblMenuTotalCalories().setText(String.format("%.2f", caloriesSum) + " kcal");
     }
 
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_addMenuItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_border"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <Spinner
+        android:id="@+id/spinnerIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_bg"
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="15dp"
+        android:textAlignment="viewEnd"
+        android:layout_gravity="end"
+        android:gravity="end"/>
+
+    <!--<Spinner
+        android:id="@+id/spinnerUnit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:foreground="#FFFFFF"
+        android:spinnerMode="dialog"/>-->
+
+    <EditText
+        android:id="@+id/editTextQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textAlignment="viewEnd"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:foreground="#FFFFFF"
+        android:textColor="#e2ffffff"
+        android:hint="Menge"
+        android:textColorHint="#FFFFFF"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnAddIngredient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hinzufügen"
+            android:textSize="14sp"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abbrechen"
+            android:textSize="14sp"
+            style="?android:attr/buttonBarButtonStyle"/>
+    </LinearLayout>
+
+</LinearLayout>

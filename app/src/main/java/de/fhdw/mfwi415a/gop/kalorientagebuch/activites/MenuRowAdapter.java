@@ -55,10 +55,8 @@ public class MenuRowAdapter extends ArrayAdapter<MenuItem> {
         MenuItem ingredient = ingredients.get(position);
 
         lbl_ingredient_name.setText(ingredient.get_foodstuffName());
-        lbl_ingredient_amount.setText(Double.valueOf(ingredient.get_quantity()) + " " + ingredient.get_quantityAbbreviation());
-        lbl_ingredient_calories.setText(Double.valueOf(ingredient.get_calories()) + " kcal");
-
-        // TODO: Get missing data and fill in the view
+        lbl_ingredient_amount.setText(ingredient.get_quantity() + " " + ingredient.get_quantityAbbreviation());
+        lbl_ingredient_calories.setText(ingredient.get_calories() + " kcal");
 
         return vi;
     }
