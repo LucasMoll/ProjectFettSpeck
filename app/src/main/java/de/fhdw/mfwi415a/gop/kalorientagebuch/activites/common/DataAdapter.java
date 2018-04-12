@@ -82,7 +82,7 @@ public class DataAdapter {
     }
     public Cursor getLebensmittelOfDay(String s)
     {
-        String sql = "select Bezeichnung, L_Bezeichnung, KTEintrag_Lebensmittel.KTEintragID as KTE_ID, sum(Menge * kcal) as SUMME from KTEintrag_Lebensmittel inner join (select KTEintrag.Bezeichnung, ID as KTE_ID from KTEintrag where Zeitpunkt = \""+s+"\") on  KTEintrag_Lebensmittel.KTEintragID  = KTE_ID left join (select ID as Lebensmittel_ID, Bezeichnung as L_Bezeichnung, kcal from Lebensmittel left join (select Lebensmittel_Einheit.LebensmittelID as L_ID, Lebensmittel_Einheit.Menge as kcal from Lebensmittel_Einheit where EinheitID=1 ) on  Lebensmittel_ID = L_ID ) where LebensmittelID = Lebensmittel_ID";
+        String sql = "select Bezeichnung, L_Bezeichnung, KTEintrag_Lebensmittel.KTEintragID as KTE_ID, sum(Menge * kcal) as SUMME from KTEintrag_Lebensmittel inner join (select KTEintrag.Bezeichnung, ID as KTE_ID from KTEintrag where Zeitpunkt = \""+s+"\") on  KTEintrag_Lebensmittel.KTEintragID  = KTE_ID left join (select ID as Lebensmittel_ID, Bezeichnung as L_Bezeichnung, kcal from Lebensmittel left join (select Lebensmittel_Einheit.LebensmittelID as L_ID, Lebensmittel_Einheit.Menge as kcal from Lebensmittel_Einheit where EinheitID=1 ) on  Lebensmittel_ID = L_ID ) where LebensmittelID = Lebensmittel_ID group by KTE_ID; Lebensmittel_ID";
         return getData(sql, "getLebensmittelOfDay");
     }
 
