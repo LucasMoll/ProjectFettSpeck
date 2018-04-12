@@ -170,8 +170,6 @@ public class ApplicationLogic {
         ((Activity) mContext).onBackPressed();
     }
 
-
-
     public void onClickAdd() {
         addEinheitToLebensmittel(mLebensmittel, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
     }

@@ -15,7 +15,5 @@ public class OnItemClickListener implements AdapterView.OnItemClickListener {
 
        mApplicationLogic.onListItemClicked(i);
 
-
-
     }
 }

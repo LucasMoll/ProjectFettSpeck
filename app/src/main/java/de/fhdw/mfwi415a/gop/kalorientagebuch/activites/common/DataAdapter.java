@@ -115,7 +115,7 @@ public class DataAdapter {
 
     public Cursor getEinheitenOfLebensmittelByLebensmittelId (int id)
     {
-        String sql= "select Lebensmittel.Bezeichnung As Lebensmittelbezeichnung, Einheit.Bezeichnung as Einheitenbezeichnung, Einheit.Kurzbezeichnung, Lebensmittel_Einheit.Menge from Lebensmittel inner join Lebensmittel_Einheit on Lebensmittel.ID = Lebensmittel_Einheit.LebensmittelID  join Einheit on Lebensmittel_Einheit.EinheitID = Einheit.ID where Lebensmittel.delFlg = 0 and Lebensmittel.ID = "+id;
+        String sql= "select Einheit.ID, Lebensmittel.Bezeichnung As Lebensmittelbezeichnung, Einheit.Bezeichnung as Einheitenbezeichnung, Einheit.Kurzbezeichnung, Lebensmittel_Einheit.Menge from Lebensmittel inner join Lebensmittel_Einheit on Lebensmittel.ID = Lebensmittel_Einheit.LebensmittelID  join Einheit on Lebensmittel_Einheit.EinheitID = Einheit.ID where Lebensmittel.delFlg = 0 and Lebensmittel.ID = "+id;
         return getData(sql, "getEinheitenOfLebensmittelByLebensmittelId");
     }
 
@@ -182,4 +182,8 @@ public class DataAdapter {
         writeData(sql, "setDeleteFlagLebensmittel");
     }
 
+    public Cursor getLebensmittelByID(int id) {
+        String sql = "select * From Lebensmittel where ID ="+id;
+         return getData(sql, "setDeleteFlagLebensmittel");
+    }
 }
