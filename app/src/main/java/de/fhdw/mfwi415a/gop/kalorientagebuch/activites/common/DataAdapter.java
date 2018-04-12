@@ -80,6 +80,11 @@ public class DataAdapter {
             String sql = "select KT_Bezeichnung, GerichtName,Portion*SUM as Summe, KT_ID from (select GerichtID, KT_Bezeichnung, KT_ID, Menge as Portion from KTEintrag_Gericht inner join (select ID as KT_ID, Bezeichnung as KT_Bezeichnung, ID from KTEintrag where KTEintrag.Zeitpunkt = \""+s+"\") where KT_ID = KTEintrag_Gericht.KTEintragID) q1 left join (select  Gericht_ID, GerichtName, sum(Lebensmittel_Einheit.Menge*Entsprechung) as SUM from Lebensmittel_Einheit inner join (select Lebensmittel_Einheit.LebensmittelID as subquer2_LebensmittelID, (subquery1_Menge*1.0/Lebensmittel_Einheit.Menge*1.0) as Entsprechung, Gericht.Bezeichnung as GerichtName, Gericht.ID as Gericht_ID from Lebensmittel_Einheit, Gericht inner join (select LebensmittelID as subquery1_LebensmittelID, EinheitID as subquer1_EinheitID, Menge as subquery1_Menge, GerichtID from Lebensmittel_Gericht) where subquery1_LebensmittelID = LebensmittelID AND (Lebensmittel_Einheit.EinheitID = subquer1_EinheitID) AND Gericht.ID= GerichtID) where subquer2_LebensmittelID = Lebensmittel_Einheit.LebensmittelID AND  Lebensmittel_Einheit.EinheitID = 1 group by Gericht_ID)q2 ON q1.GerichtID = q2.Gericht_ID order by KT_ID";
             return getData(sql, "getGerichteofDay");
     }
+    public Cursor getLebensmittelOfDay(String s)
+    {
+        String sql = "select Bezeichnung, L_Bezeichnung, KTEintrag_Lebensmittel.KTEintragID as KTE_ID, sum(Menge * kcal) as SUMME from KTEintrag_Lebensmittel inner join (select KTEintrag.Bezeichnung, ID as KTE_ID from KTEintrag where Zeitpunkt = \""+s+"\") on  KTEintrag_Lebensmittel.KTEintragID  = KTE_ID left join (select ID as Lebensmittel_ID, Bezeichnung as L_Bezeichnung, kcal from Lebensmittel left join (select Lebensmittel_Einheit.LebensmittelID as L_ID, Lebensmittel_Einheit.Menge as kcal from Lebensmittel_Einheit where EinheitID=1 ) on  Lebensmittel_ID = L_ID ) where LebensmittelID = Lebensmittel_ID";
+        return getData(sql, "getLebensmittelOfDay");
+    }
 
     public Cursor getAllGerichte()
     {
@@ -91,6 +96,12 @@ public class DataAdapter {
     {
         String sql = "select * from Gericht where ID =" + i;
         return getData(sql,"getnameOfGericht");
+    }
+
+    public Cursor getNameOfLebensmittel( int i)
+    {
+        String sql = "select * from Lebensmittel where ID =" + i;
+        return getData(sql,"getnameOfLebensmittel");
     }
 
     public Cursor getMaxKTE_ID()
