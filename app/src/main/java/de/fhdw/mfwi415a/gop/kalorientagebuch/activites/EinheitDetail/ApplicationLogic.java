@@ -25,6 +25,9 @@ public class ApplicationLogic {
     private Context mContext;
     private int currentEinheit_ID;
     private int delFlg = 0;
+    private String aktuelleBezeichnung;
+    private String aktuelleKurzBezeichnung;
+
 
 
     public ApplicationLogic(Gui gui, Context context, int EinheitID) {
@@ -37,6 +40,9 @@ public class ApplicationLogic {
     }
 
     private void initGui() {
+
+
+        setBezeichnungen();
 
     }
 
@@ -61,11 +67,61 @@ public class ApplicationLogic {
 
     }
 
+    private void setBezeichnungen(){
+
+        getBezeichnung();
+        getKurzBezeichnung();
+
+        String textBezeichnung;
+        String textKurzbezeichnung;
+
+        textBezeichnung = "Aktuelle Bezeichnung:" + aktuelleBezeichnung;
+        textKurzbezeichnung = "Aktuelle Bezeichnung:" + aktuelleKurzBezeichnung;
+
+        mGui.getmBezeichnungText().setText(textBezeichnung);
+        mGui.getmKurzText().setText(textKurzbezeichnung);
+
+    }
+
+    private void getBezeichnung() {
+
+
+        DataAdapter mDBHelper = new DataAdapter(mContext);
+        mDBHelper.createDatabase();
+        mDBHelper.open();
+
+        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";",null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            aktuelleBezeichnung = cursor.getString(cursor.getColumnIndex("Bezeichnung"));
+        }
+
+        cursor.close();
+        mDBHelper.close();
+
+    }
+
+    private void getKurzBezeichnung() {
+        DataAdapter mDBHelper = new DataAdapter(mContext);
+        mDBHelper.createDatabase();
+        mDBHelper.open();
+
+        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            aktuelleKurzBezeichnung = cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
+        }
+
+        cursor.close();
+        mDBHelper.close();
+    }
+
     public void onSaveClicked() {
 
         delFlg = 0;
-
-
 
         String insert1 = "UPDATE Einheit SET Bezeichnung=\""+ mGui.getmBezeichnung().getText().toString() +"\", Kurzbezeichnung=\""+ mGui.getmKurzBezeichnung().getText().toString() +"\", delFlg=\""+ delFlg + "\"WHERE ID =" + currentEinheit_ID;
         Log.d("Test", insert1);
