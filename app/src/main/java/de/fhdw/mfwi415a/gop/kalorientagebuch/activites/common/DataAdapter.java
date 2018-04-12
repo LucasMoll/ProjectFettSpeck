@@ -186,4 +186,9 @@ public class DataAdapter {
         String sql = "select * From Lebensmittel where ID ="+id;
          return getData(sql, "setDeleteFlagLebensmittel");
     }
+
+    public void updateLebensmittelBezeichnung(String lebensmittelOld, String lebensmittelNew) {
+        String sql = "update Lebensmittel set Bezeichnung = \""+lebensmittelNew+"\" where Bezeichnung =\""+lebensmittelOld+"\"";
+        writeData(sql, "setDeleteFlagLebensmittel");
+    }
 }

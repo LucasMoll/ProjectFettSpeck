@@ -49,6 +49,7 @@ public class ApplicationLogic {
         mGui.getAddButton().setOnClickListener(cl);
         mGui.getDeleteButton().setOnClickListener(cl);
         mGui.getlistViewEinheiten().setOnItemLongClickListener(new OnItemLongClickListener(this));
+        mGui.getSaveButton().setOnClickListener(cl);
         //mGui.getmLebensmittelPlusFab().setOnClickListener(cl);
     }
 
@@ -73,9 +74,13 @@ public class ApplicationLogic {
             mLebensmittel = (cursor.getString(cursor.getColumnIndex("Lebensmittelbezeichnung")));
             while (!cursor.isAfterLast()) {
 
-                bezeichnungen.add(cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung")));
-                kurzbezeichnung.add(cursor.getString(cursor.getColumnIndex("Kurzbezeichnung")));
-                menge.add(cursor.getDouble(cursor.getColumnIndex("Menge")));
+                //part-of-longversion
+//                bezeichnungen.add(cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung")));
+//                kurzbezeichnung.add(cursor.getString(cursor.getColumnIndex("Kurzbezeichnung")));
+//                menge.add(cursor.getDouble(cursor.getColumnIndex("Menge")));
+                //quick-version
+                String entry = cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung"))+" - "+cursor.getDouble(cursor.getColumnIndex("Menge"))+cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
+                bezeichnungen.add(entry);
                 mIndexListUsedEInheiten.add(cursor.getInt(cursor.getColumnIndex("ID")));
                 cursor.moveToNext();
             }
@@ -171,7 +176,20 @@ public class ApplicationLogic {
     }
 
     public void onClickAdd() {
-        addEinheitToLebensmittel(mLebensmittel, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
+        try {
+            addEinheitToLebensmittel(mLebensmittel, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
+        }
+        catch (Exception e)
+        {
+            String x = mGui.getmMenge().getText().toString();
+            if (x.equals(""))
+            {
+                mGui.setSnackbar("Es fehlt die Angabe der Menge");
+            }
+            else {
+                mGui.setSnackbar("Du hast keine weiteren Einheiten angelegt.");
+            }
+        }
     }
 
     private void addEinheitToLebensmittel(String lebensmittel, String eineit, String menge) {
@@ -182,5 +200,16 @@ public class ApplicationLogic {
         mDbHelper.close();
 
         initGui();
+    }
+
+    public void onClickSave() {
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+        mDbHelper.updateLebensmittelBezeichnung(mLebensmittel, mGui.getBezeichnung().getText().toString());
+        mDbHelper.close();
+
+
+        mGui.setSnackbar("Neuer Name gespeichert.");
     }
 }

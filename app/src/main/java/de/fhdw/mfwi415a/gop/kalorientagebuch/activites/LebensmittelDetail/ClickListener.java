@@ -19,8 +19,13 @@ public class ClickListener implements View.OnClickListener {
         {
             case R.id.lebensmitteldetail_delete:
                 mApplicationLogic.onClickDelete();
+                break;
             case R.id.lebensmitteldetail_add:
                 mApplicationLogic.onClickAdd();
+                break;
+            case R.id.lebensmitteldetail_save:
+                mApplicationLogic.onClickSave();
+                break;
         }
     }
 }
