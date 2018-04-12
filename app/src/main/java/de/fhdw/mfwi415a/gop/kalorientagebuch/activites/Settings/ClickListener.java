@@ -33,22 +33,10 @@ public class ClickListener implements View.OnClickListener {
                 mApplicationLogic.alleEinheitenClicked();
                 break;
 
-            case R.id.button_neueEinheit:
-                mApplicationLogic.neueEinheitHinzufuegenClicked();
-                break;
-
             case R.id.button_name:
-                Log.d("TEST", "onSaveClicked");
-                mApplicationLogic.OnNameClicked();
+                mApplicationLogic.profilChangeClicked();
                 break;
 
-            case R.id.button_email:
-                mApplicationLogic.OnEmailClicked();
-                break;
-
-            case R.id.button_hoechstsatz:
-                mApplicationLogic.OnKcalClicked();
-                break;
         }
 
 

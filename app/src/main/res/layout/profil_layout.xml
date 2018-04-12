@@ -28,48 +28,18 @@
         android:layout_below="@+id/text_persData"/>
 
 
-    <Button
-        android:id="@+id/button_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_name"
-        android:text="@string/button_email"
-        android:textColor="@color/text_color" />
-
-
-    <Button
-        android:id="@+id/button_hoechstsatz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_email"
-        android:text="@string/button_hoechstsatz"
-        android:textColor="@color/text_color"/>
-
 
     <TextView
         android:id="@+id/text_standardeinheiten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_hoechstsatz"
+        android:layout_below="@+id/button_name"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:text="@string/text_standardeinheiten"
         android:textSize="19dp"
         android:textColor="@color/colorPrimary"/>
 
-    <Button
-        android:id="@+id/button_neueEinheit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/text_standardeinheiten"
-        android:text="@string/button_neueEinheit"
-        android:textColor="@color/text_color"/>
 
     <Button
         android:id="@+id/button_alleEinheiten"
@@ -77,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_neueEinheit"
+        android:layout_below="@+id/text_standardeinheiten"
         android:text="@string/button_alleEinheiten"
         android:textColor="@color/text_color"/>
 

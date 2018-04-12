@@ -72,6 +72,7 @@ public class ApplicationLogic {
         getBezeichnung();
         getKurzBezeichnung();
 
+
         String textBezeichnung;
         String textKurzbezeichnung;
 
@@ -101,6 +102,9 @@ public class ApplicationLogic {
         cursor.close();
         mDBHelper.close();
 
+        mGui.getmBezeichnungText().setText(aktuelleBezeichnung);
+
+
     }
 
     private void getKurzBezeichnung() {
@@ -117,6 +121,11 @@ public class ApplicationLogic {
 
         cursor.close();
         mDBHelper.close();
+
+
+        mGui.getmKurzText().setText(aktuelleKurzBezeichnung);
+
+
     }
 
     public void onSaveClicked() {
