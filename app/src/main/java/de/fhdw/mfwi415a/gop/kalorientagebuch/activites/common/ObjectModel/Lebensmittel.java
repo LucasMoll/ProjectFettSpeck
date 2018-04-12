@@ -4,21 +4,15 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by pschoger on 20.03.2018.
  */
 
-public class Nahrungsmittel implements Parcelable {
+public class Lebensmittel implements Parcelable {
     private String _Bezeichnung;
     private Bundle _Einheiten;
 
-    public Nahrungsmittel()
+    public Lebensmittel()
     {
         _Einheiten = new Bundle();
     }
@@ -50,20 +44,20 @@ public class Nahrungsmittel implements Parcelable {
         dest.writeBundle(this._Einheiten);
     }
 
-    protected Nahrungsmittel(Parcel in) {
+    protected Lebensmittel(Parcel in) {
         this._Bezeichnung = in.readString();
         this._Einheiten = in.readBundle();
     }
 
-    public static final Creator<Nahrungsmittel> CREATOR = new Creator<Nahrungsmittel>() {
+    public static final Creator<Lebensmittel> CREATOR = new Creator<Lebensmittel>() {
         @Override
-        public Nahrungsmittel createFromParcel(Parcel source) {
-            return new Nahrungsmittel(source);
+        public Lebensmittel createFromParcel(Parcel source) {
+            return new Lebensmittel(source);
         }
 
         @Override
-        public Nahrungsmittel[] newArray(int size) {
-            return new Nahrungsmittel[size];
+        public Lebensmittel[] newArray(int size) {
+            return new Lebensmittel[size];
         }
     };
 }

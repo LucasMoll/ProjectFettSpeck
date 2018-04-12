@@ -8,13 +8,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Gericht;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.KTEintrag;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Nahrungsmittel;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Lebensmittel;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.constants.Constants;
 
 public class Data {
@@ -23,12 +21,12 @@ public class Data {
     private Activity mActivity;
     private ArrayList<KTEintrag> mKTEintragArrayList;
     private ArrayList<Gericht> mGerichtArrayList;
-    private ArrayList<Nahrungsmittel> mNahrungsmittelArrayList;
+    private ArrayList<Lebensmittel> mLebensmittelArrayList;
     private ArrayList<String> mEinheitArrayList;
     // currents
     private KTEintrag mCurrentKTEintrag;
     private Gericht mCurrentGericht;
-    private Nahrungsmittel mCurrentNahrungsmittel;
+    private Lebensmittel mCurrentLebensmittel;
 
     private String mCurrentEinheit;
 
@@ -60,7 +58,7 @@ public class Data {
     {
         mKTEintragArrayList = new ArrayList<>();
         mGerichtArrayList = new ArrayList<>();
-        mNahrungsmittelArrayList = new ArrayList<>();
+        mLebensmittelArrayList = new ArrayList<>();
         mEinheitArrayList = new ArrayList<>();
     }
 
@@ -83,11 +81,11 @@ public class Data {
         b.putInt(Constants.KEYEXAMPLEINTVALUE, mExampleIntValue);
         b.putLong(Constants.KEYEXAMPLELONGVALUE, mExampleLongValue);
         b.putStringArrayList(Constants.KEYEINHEITEN, mEinheitArrayList);
-        b.putParcelableArrayList(Constants.KEYNAHRUNGSMITTEL,mNahrungsmittelArrayList);
+        b.putParcelableArrayList(Constants.KEYNAHRUNGSMITTEL, mLebensmittelArrayList);
         b.putParcelableArrayList(Constants.KEYGERICHT,mGerichtArrayList);
         b.putParcelableArrayList(Constants.KEYKTEINTRAG,mKTEintragArrayList);
         b.putString(Constants.KEYCURRENTEINHEIT,mCurrentEinheit);
-        b.putParcelable(Constants.KEYCURRENTNAHRUNGSMITTEL, mCurrentNahrungsmittel);
+        b.putParcelable(Constants.KEYCURRENTNAHRUNGSMITTEL, mCurrentLebensmittel);
         b.putParcelable(Constants.KEYCURRENTGERICHT, mCurrentGericht);
         b.putParcelable(Constants.KEYCURRENTKTEINTRAG, mCurrentKTEintrag);
         // b.putLongArray(KEYLONGARRAY, mExamplelongArray);
@@ -97,11 +95,11 @@ public class Data {
         mExampleIntValue = b.getInt(Constants.KEYEXAMPLEINTVALUE);
         mExampleLongValue = b.getLong(Constants.KEYEXAMPLELONGVALUE);
         mEinheitArrayList = b.getStringArrayList(Constants.KEYEINHEITEN);
-        mNahrungsmittelArrayList = b.getParcelableArrayList(Constants.KEYNAHRUNGSMITTEL);
+        mLebensmittelArrayList = b.getParcelableArrayList(Constants.KEYNAHRUNGSMITTEL);
         mGerichtArrayList = b.getParcelableArrayList(Constants.KEYGERICHT);
         mKTEintragArrayList = b.getParcelableArrayList(Constants.KEYKTEINTRAG);
         mCurrentEinheit = b.getString(Constants.KEYCURRENTEINHEIT);
-        mCurrentNahrungsmittel = b.getParcelable(Constants.KEYCURRENTNAHRUNGSMITTEL);
+        mCurrentLebensmittel = b.getParcelable(Constants.KEYCURRENTNAHRUNGSMITTEL);
         mCurrentGericht = b.getParcelable(Constants.KEYCURRENTGERICHT);
         mCurrentKTEintrag = b.getParcelable(Constants.KEYCURRENTKTEINTRAG);
         // mExamplelongArray = b.getLongArray(KEYLONGARRAY);
@@ -121,8 +119,8 @@ public class Data {
         this.mGerichtArrayList = mGerichtArrayList;
     }
 
-    public void setmNahrungsmittelArrayList(ArrayList<Nahrungsmittel> mNahrungsmittelArrayList) {
-        this.mNahrungsmittelArrayList = mNahrungsmittelArrayList;
+    public void setmLebensmittelArrayList(ArrayList<Lebensmittel> mLebensmittelArrayList) {
+        this.mLebensmittelArrayList = mLebensmittelArrayList;
     }
 
     public void setmEinheitArrayList(ArrayList<String> mEinheitArrayList) {
@@ -137,8 +135,8 @@ public class Data {
         this.mCurrentGericht = mCurrentGericht;
     }
 
-    public void setmCurrentNahrungsmittel(Nahrungsmittel mCurrentNahrungsmittel) {
-        this.mCurrentNahrungsmittel = mCurrentNahrungsmittel;
+    public void setmCurrentLebensmittel(Lebensmittel mCurrentLebensmittel) {
+        this.mCurrentLebensmittel = mCurrentLebensmittel;
     }
 
     public void setmCurrentEinheit(String mCurrentEinheit) {
@@ -175,8 +173,8 @@ public class Data {
         return mGerichtArrayList;
     }
 
-    public ArrayList<Nahrungsmittel> getmNahrungsmittelArrayList() {
-        return mNahrungsmittelArrayList;
+    public ArrayList<Lebensmittel> getmLebensmittelArrayList() {
+        return mLebensmittelArrayList;
     }
 
     public ArrayList<String> getmEinheitArrayList() {
@@ -191,8 +189,8 @@ public class Data {
         return mCurrentGericht;
     }
 
-    public Nahrungsmittel getmCurrentNahrungsmittel() {
-        return mCurrentNahrungsmittel;
+    public Lebensmittel getmCurrentLebensmittel() {
+        return mCurrentLebensmittel;
     }
 
     public String getmCurrentEinheit() {

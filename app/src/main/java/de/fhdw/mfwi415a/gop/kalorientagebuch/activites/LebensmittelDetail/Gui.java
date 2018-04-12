@@ -6,8 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 
@@ -21,23 +24,64 @@ public class Gui {
     Context mContext;
     Activity mActivity;
     ListAdapter mListAdapter;
-    ListView listViewLebensmittel;
+
+
+
+    private ListView mlistViewEinheiten;
+    private Button mAddButton;
+    private Button mDeleteButton;
+    private Spinner mEinheitenSpinner;
+    private EditText mBezeichnung;
+    private EditText mMenge;
+
     public Gui(View myView) {
         mView = myView;
-        listViewLebensmittel = (ListView) mView.findViewById(R.id.lebensmittelListView);
-        mPlus = (FloatingActionButton) myView.findViewById(R.id.lebensmittel_plus_fab);
+
+        mlistViewEinheiten = (ListView) myView.findViewById(R.id.lebensmitteldetail_usedeinheiten);
+        mAddButton = (Button) myView.findViewById(R.id.lebensmitteldetail_add);
+        mDeleteButton = (Button) myView.findViewById(R.id.lebensmitteldetail_delete);
+        mEinheitenSpinner = (Spinner) myView.findViewById(R.id.lebensmitteldetail_einheiten);
+        mBezeichnung = (EditText) myView.findViewById(R.id.lebensmitteldetail_bezeichnung);
+        mMenge = (EditText) myView.findViewById(R.id.lebensmitteldetail_addmenge);
+
+        //listViewLebensmittel = (ListView) mView.findViewById(R.id.lebensmittelListView);
+        //mPlus = (FloatingActionButton) myView.findViewById(R.id.lebensmittel_plus_fab);
 
         //mActivity =  (Activity) (mView.getContext());
         //mContext = mActivity;
+    }
+
+    public ListView getlistViewEinheiten() {
+        return mlistViewEinheiten;
+    }
+
+    public Button getAddButton() {
+        return mAddButton;
+    }
+
+    public Button getDeleteButton() {
+        return mDeleteButton;
+    }
+
+    public Spinner getEinheitenSpinner() {
+        return mEinheitenSpinner;
+    }
+
+    public EditText getBezeichnung() {
+        return mBezeichnung;
+    }
+
+    public EditText getmMenge() {
+        return mMenge;
     }
 
     public FloatingActionButton getmLebensmittelPlusFab() {
         return mPlus;
     }
 
-    public void populateListView(ArrayAdapter<String> arrayAdapter)
+    public void populateEinheitenListView(ArrayAdapter<String> arrayAdapter)
     {
-        listViewLebensmittel.setAdapter(arrayAdapter);
+        mlistViewEinheiten.setAdapter(arrayAdapter);
     }
 
     public void setSnackbar(String text) {

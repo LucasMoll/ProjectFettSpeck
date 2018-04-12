@@ -55,6 +55,7 @@ public class ApplicationLogic {
         cursor.moveToFirst();
         ArrayList<String> bezeichnungen = new ArrayList<String>();
         while(!cursor.isAfterLast()) {
+            mIndexList.add(cursor.getInt(cursor.getColumnIndex("ID")));
             bezeichnungen.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
             cursor.moveToNext();
         }
@@ -80,9 +81,10 @@ public class ApplicationLogic {
         fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag").commit();
     }
 
-    public void onListItemClicked(int i){
-        String s = String.valueOf(mIndexList.get(i));
-        changeFragment(new LebensmittelDetailFragment(), i);
+    public void onListItemClicked(int listviewIndex){
+        //get lebensmittelID from corresponding arraylist
+        int id = mIndexList.get(listviewIndex);
+        changeFragment(new LebensmittelDetailFragment(), id);
     }
 
 

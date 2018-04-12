@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 //import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.Model.Einheit;
-//import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.Model.Nahrungsmittel;
+//import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.Model.Lebensmittel;
 //import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.Model.Nahrungsmittel_Einheit;
 
 

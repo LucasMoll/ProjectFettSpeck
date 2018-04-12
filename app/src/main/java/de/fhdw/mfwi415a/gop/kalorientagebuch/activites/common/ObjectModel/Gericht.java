@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class Gericht implements Parcelable {
     private String _Bezeichnung;
-//    private Map<Nahrungsmittel, Map.Entry<String, Double>> _Nahrungsmittel;
+//    private Map<Lebensmittel, Map.Entry<String, Double>> _Nahrungsmittel;
     private Bundle _Nahrungsmittel;
 
     public Gericht()

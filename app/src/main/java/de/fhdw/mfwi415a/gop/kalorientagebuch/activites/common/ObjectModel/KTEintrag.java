@@ -15,7 +15,7 @@ import java.util.Map;
 public class KTEintrag implements Parcelable {
     private String _Bezeichnung;
    //private Map<Gericht, Map.Entry<String, Double>> _Gerichte;
-   //private Map<Nahrungsmittel, Map.Entry<String, Double>> _Nahrungsmittel;
+   //private Map<Lebensmittel, Map.Entry<String, Double>> _Nahrungsmittel;
     private Bundle _Gerichte;
     private Bundle _Nahrungsmittel;
     private Date _Datum;

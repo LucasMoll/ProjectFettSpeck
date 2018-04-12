@@ -34,6 +34,7 @@ public class LebensmittelDetailFragment extends android.app.Fragment {
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
         getActivity().setTitle("Lebensmitteldetail");
 
+        mApplicationLogic.setLebensmittelID(this.getArguments().getInt("Lebensmittel_ID"));
         return myView;
     }
 }

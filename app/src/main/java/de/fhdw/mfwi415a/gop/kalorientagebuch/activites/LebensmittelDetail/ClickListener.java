@@ -17,11 +17,11 @@ public class ClickListener implements View.OnClickListener {
 
         switch (view.getId())
         {
-            case R.id.home_plus_fab:
-                mApplicationLogic.onPlusFabClicked();
+            case R.id.lebensmitteldetail_delete:
+                mApplicationLogic.onClickDelete();
+            case R.id.lebensmitteldetail_add:
+                mApplicationLogic.onClickAdd();
         }
-
-
     }
 }
 

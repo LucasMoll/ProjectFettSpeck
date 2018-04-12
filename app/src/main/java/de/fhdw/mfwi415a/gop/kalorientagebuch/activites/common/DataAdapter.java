@@ -56,7 +56,7 @@ public class DataAdapter {
     }
 
     public Cursor getAllLebensmittel() {
-            String sql = "SELECT * FROM Lebensmittel where delFlg = 0 order by Bezeichnung";
+            String sql = "SELECT * FROM Lebensmittel where delFlg = 0 order by Bezeichnung COLLATE NOCASE";
             return getData(sql, "getLebensmittel");
     }
 
@@ -97,6 +97,12 @@ public class DataAdapter {
     {
         String sql = "select max(ID) from KTEintrag";
         return getData(sql,"getMaxKTE_ID");
+    }
+
+    public Cursor getEinheitenOfLebensmittelByLebensmittelId (int id)
+    {
+        String sql= "select Lebensmittel.Bezeichnung As Lebensmittelbezeichnung, Einheit.Bezeichnung as Einheitenbezeichnung, Einheit.Kurzbezeichnung, Lebensmittel_Einheit.Menge from Lebensmittel inner join Lebensmittel_Einheit on Lebensmittel.ID = Lebensmittel_Einheit.LebensmittelID  join Einheit on Lebensmittel_Einheit.EinheitID = Einheit.ID where Lebensmittel.delFlg = 0 and Lebensmittel.ID = "+id;
+        return getData(sql, "getEinheitenOfLebensmittelByLebensmittelId");
     }
 
     public Cursor getData(String sqlQuery, String logName)
