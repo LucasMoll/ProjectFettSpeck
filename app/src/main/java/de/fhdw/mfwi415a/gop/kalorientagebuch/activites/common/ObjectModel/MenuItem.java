@@ -1,47 +1,39 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel;
 
+import android.database.Cursor;
+import android.view.Menu;
+
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+
 public class MenuItem {
 
-    private int _foodstuffsId;
-    private String _foodstuffName;
-    private double _kcals;
+    private Foodstuff _foodstuff;
     private double _quantity;
-    private String _quantityAbbreviation;
-    private String _quantityUnit;
 
-    public MenuItem()
+    public MenuItem(Foodstuff foodstuff)
     {
-
+        this(foodstuff, 0.0);
     }
 
-    public int get_foodstuffsId()
+    public MenuItem(Foodstuff foodstuff, double quantity)
     {
-        return this._foodstuffsId;
+        this._foodstuff = foodstuff;
+        this._quantity = quantity;
     }
 
-    public void set_foodstuffsId(int menuId)
-    {
-        this._foodstuffsId = menuId;
+    public Foodstuff get_foodstuff() {
+        return _foodstuff;
     }
 
-    public String get_foodstuffName()
+    public void set_foodstuff(Foodstuff foodstuff)
     {
-        return this._foodstuffName;
-    }
-
-    public void set_foodstuffName(String menuName)
-    {
-        this._foodstuffName = menuName;
+        if(_foodstuff != null)
+            _foodstuff = foodstuff;
     }
 
     public double get_calories()
     {
-        return this._kcals;
-    }
-
-    public void set_calories(double calories)
-    {
-        this._kcals = calories;
+        return this.get_foodstuff().get_kcalsPerUnit() * this._quantity;
     }
 
     public double get_quantity()
@@ -54,28 +46,32 @@ public class MenuItem {
         this._quantity = amount;
     }
 
-    public String get_quantityAbbreviation()
+    public static MenuItem retrieveById(int foodstuffId, int menuId, DataAdapter dataAdapter)
     {
-        return this._quantityAbbreviation;
+        Cursor cQuant = dataAdapter.getData("SELECT Menge FROM Lebensmittel_Gericht WHERE LebensmittelId = " + foodstuffId + " AND GerichtId = " + menuId + ";", "lgGetMenuItemQuantity");
+
+        if(cQuant.getCount() == 0)
+            return null;
+
+        cQuant.moveToFirst();
+
+        if(cQuant.isNull(0))
+            return null;
+
+        double quantity = cQuant.getDouble(0);
+
+        cQuant.close();
+
+        Foodstuff foodstuff = Foodstuff.retrieveById(foodstuffId, dataAdapter);
+
+        MenuItem item = new MenuItem(foodstuff, quantity);
+
+        return item;
     }
 
-    public void set_quantityAbbreviation(String quantityAbbreviation)
-    {
-        this._quantityAbbreviation = quantityAbbreviation;
-    }
-
-    public String get_quantityUnit()
-    {
-        return this._quantityUnit;
-    }
-
-    public void set_quantityUnit(String unit)
-    {
-        this._quantityUnit = unit;
-    }
 
     @Override
     public String toString() {
-        return get_quantity() + " " + get_quantityUnit() + " of " + get_foodstuffName() + " have " + get_calories() + " kcal.";
+        return get_quantity() + " " + get_foodstuff().get_quantityUnit() + " of " + get_foodstuff().get_foodstuffName() + " have " + get_calories() + " kcal.";
     }
 }

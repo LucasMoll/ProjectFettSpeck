@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Foodstuff;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.MenuItem;
 
 public class Gui {
 
@@ -77,46 +80,32 @@ public class Gui {
             Spinner ingredientsSpinner = layout.findViewById(R.id.spinnerIngredient);
             //Spinner quantityUnitsSpinner = layout.findViewById(R.id.spinnerUnit);
 
-            ArrayList<String> nahrungsmittel = new ArrayList<String>();
+            ArrayList<Foodstuff> foodstuffs = new ArrayList<Foodstuff>();
             //ArrayList<String> quantityUnits = new ArrayList<String>();
 
             DataAdapter mDBHelper = new DataAdapter(mView.getContext());
             mDBHelper.createDatabase();
             mDBHelper.open();
 
-            Cursor cNahrungsmittel = mDBHelper.getAllLebensmittel();
+            Cursor cfoodstuff = mDBHelper.getData("SELECT ID FROM Lebensmittel", "lbGetAllLebensmittelIDs");
 
-            int idxBezeichnung = cNahrungsmittel.getColumnIndex("Bezeichnung");
+            int idxId = cfoodstuff.getColumnIndex("ID");
 
-            cNahrungsmittel.moveToFirst();
-
-            while(!cNahrungsmittel.isAfterLast())
-
+            if(cfoodstuff.getCount() > 0)
             {
-                nahrungsmittel.add(cNahrungsmittel.getString(idxBezeichnung));
-                cNahrungsmittel.moveToNext();
+                cfoodstuff.moveToFirst();
+
+                while (!cfoodstuff.isAfterLast()) {
+                    foodstuffs.add(Foodstuff.retrieveById(cfoodstuff.getInt(idxId), mDBHelper));
+                    cfoodstuff.moveToNext();
+                }
             }
 
-            cNahrungsmittel.close();
-
-            /*Cursor cQuantityUnits = mDBHelper.getAllEinheiten();
-
-            idxBezeichnung = cNahrungsmittel.getColumnIndex("Bezeichnung");
-
-            cQuantityUnits.moveToFirst();
-
-            while(!cQuantityUnits.isAfterLast())
-
-            {
-                quantityUnits.add(cQuantityUnits.getString(idxBezeichnung));
-                cQuantityUnits.moveToNext();
-            }
-
-            cQuantityUnits.close();*/
+            cfoodstuff.close();
 
             mDBHelper.close();
 
-            ArrayAdapter<String> nahrungsmittelAdapter = new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_spinner_dropdown_item, nahrungsmittel);
+            ArrayAdapter<Foodstuff> foodstuffAdapter = new ArrayAdapter<Foodstuff>(mView.getContext(), android.R.layout.simple_spinner_dropdown_item, foodstuffs);
             //ArrayAdapter<String> quantityUnitsAdapter = new ArrayAdapter<>(mView.getContext(), android.R.layout.simple_spinner_dropdown_item, quantityUnits);
 
             Button btnCancel = layout.findViewById(R.id.btnCancel);
@@ -135,10 +124,12 @@ public class Gui {
                     Spinner spIngr = layout.findViewById(R.id.spinnerIngredient);
                     String tstring = spIngr.getSelectedItem().toString(); //TODO: Get full Item information and add item to the list
                     double quantity = Double.parseDouble(((EditText)layout.findViewById(R.id.editTextQuantity)).getText().toString());
+
+                    mPopUpAddIngredient.dismiss();
                 }
             });
 
-            ingredientsSpinner.setAdapter(nahrungsmittelAdapter);
+            ingredientsSpinner.setAdapter(foodstuffAdapter);
             //quantityUnitsSpinner.setAdapter(quantityUnitsAdapter);
 
             mPopUpAddIngredient = new PopupWindow(layout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
