@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Geben Sie die Menge an, die hinzugefügt werden soll"
+        android:text="Biite gib die Menge an, die hinzugefügt werden soll"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textSize="17sp"/>
 

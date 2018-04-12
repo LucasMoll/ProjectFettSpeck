@@ -8,8 +8,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -166,7 +164,6 @@ public class ApplicationLogic {
         TextView Menge = (TextView) mDialogView.findViewById(R.id.Portion_Menge);
         Float f = Float.parseFloat(Menge.getText().toString());
         mInsert_KTEEintrag_Gericht += " (" + currentGericht + ", " + KTE_ID + ", 7, " + f + "), ";
-        Log.d("OnOKCLicked", mInsert_KTEEintrag_Gericht);
     }
 
     private String getCurrentDate() {
@@ -187,9 +184,6 @@ public class ApplicationLogic {
         String insert1 = "INSERT INTO KTEintrag (ID,Zeitpunkt,Bezeichnung) VALUES" + " ("+ KTE_ID+ ", \"" + getCurrentDate()+"\", \"" + mGui.getmBezeichnung().getText().toString() + "\")";
         String insert2 = "INSERT INTO KTEintrag_Gericht (GerichtID,KTEintragID,EinheitID, Menge) VALUES " + mInsert_KTEEintrag_Gericht.substring(0, mInsert_KTEEintrag_Gericht.length()-2);
 
-        Log.d("Insert1", insert1);
-        Log.d("Insert2", insert2);
-
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
@@ -199,13 +193,13 @@ public class ApplicationLogic {
 
         mGui.setSnackbar("Eintrag wurde erfolgreich gespeichert!");
 
-        changeFragment(new HomeFragment(), 0);
+        changeFragment(new HomeFragment());
 
         }
 
     }
 
-    private void changeFragment(Fragment f, int i) {
+    private void changeFragment(Fragment f) {
         Activity activity = (Activity) mContext;
 
         FragmentManager fragmentManager = activity.getFragmentManager();
