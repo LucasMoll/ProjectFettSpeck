@@ -99,6 +99,11 @@ public class DataAdapter {
         return getData(sql,"getMaxKTE_ID");
     }
 
+    public Cursor getMaxEinheit_ID(){
+        String sql = "select max(ID) from Einheit";
+        return getData(sql,"getMaxEintrag_ID");
+    }
+
     public Cursor getData(String sqlQuery, String logName)
     {
         try {

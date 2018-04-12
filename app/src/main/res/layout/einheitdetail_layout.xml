@@ -29,6 +29,14 @@
         android:textColor="@color/text_color"/>
 
     <Button
+        android:id="@+id/add_einheit_item_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="löschen"
+        android:layout_above="@+id/add_einheit_item_save"
+        android:textColor="@color/text_color"/>
+
+    <Button
         android:id="@+id/add_einheit_item_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

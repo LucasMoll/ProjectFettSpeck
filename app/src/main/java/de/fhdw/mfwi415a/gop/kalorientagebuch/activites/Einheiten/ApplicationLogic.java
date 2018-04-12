@@ -3,6 +3,7 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddMenueFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitenFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitendetailFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
 public class ApplicationLogic {
@@ -81,15 +83,7 @@ public class ApplicationLogic {
 
     public void OnListItemClicked(int i) {
 
-        Activity activity = (Activity) mContext;
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("Einheit_ID",mIDList.get(i));
-        AddEinheitFragment F = new AddEinheitFragment();
-        F.setArguments(bundle);
-
-        FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
+        changeFragment(new EinheitendetailFragment(), 0);
 
     }
 
@@ -103,11 +97,12 @@ public class ApplicationLogic {
         Activity activity = (Activity) mContext;
 
         Bundle bundle = new Bundle();
-        bundle.putInt("Menue_ID", i);
+        bundle.putInt("Einheit_ID",mIDList.get(i));
         f.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
+        FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag");
+        ft.detach(f).attach(f).commitAllowingStateLoss();
     }
 
 }
