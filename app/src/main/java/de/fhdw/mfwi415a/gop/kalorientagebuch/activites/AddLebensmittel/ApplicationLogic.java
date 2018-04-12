@@ -6,24 +6,25 @@ import android.database.Cursor;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.constants.Constants;
 
 public class ApplicationLogic {
 
 
     private Gui mGui;
 
-    public void saveLebensmittel(String bezeichnung) {
+    public void saveLebensmittel(String bezeichnung, Double kilokalorien) {
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
         mDbHelper.writeNewLebensmittel(bezeichnung);
+        mDbHelper.writeEinheitToLebensmittel(bezeichnung, Constants.KEYKILOKALORIEN, kilokalorien);
+
         mDbHelper.close();
-
-        ((Activity) mContext).onBackPressed();
     }
-
 
     private Context mContext;
     //private
@@ -38,7 +39,6 @@ public class ApplicationLogic {
 
     private void initGui() {
 
-
     }
 
     private void initListener() {
@@ -48,6 +48,19 @@ public class ApplicationLogic {
     }
 
     public void onClickedSave() {
-        saveLebensmittel(mGui.getBezeichnung());
+        String bezeichnung = mGui.getBezeichnung();
+        Double i;
+        try{
+            i = Double.parseDouble(mGui.getKilokalorien());
+        }
+        catch (Exception e)
+        {
+            i = 0d;
+        }
+        saveLebensmittel(bezeichnung, i);
+
+        ((Activity) mContext).onBackPressed();
     }
+
+
 }

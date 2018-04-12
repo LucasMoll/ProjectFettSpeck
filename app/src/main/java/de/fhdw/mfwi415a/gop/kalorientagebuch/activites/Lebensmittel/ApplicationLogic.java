@@ -32,6 +32,7 @@ public class ApplicationLogic {
     }
 
     private void initGui() {
+        mIndexList.clear();
         // initialize view attributes
         getArrayAdapterAllLebensmittel();
     }

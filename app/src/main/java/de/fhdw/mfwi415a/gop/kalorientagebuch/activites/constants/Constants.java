@@ -1,5 +1,7 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.constants;
 
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
+
 /**
  * Created by joel on 05.03.18.
  */
@@ -21,6 +23,9 @@ public class Constants {
     public static final String KEYCURRENTNAHRUNGSMITTEL = "K8";
     public static final String KEYCURRENTGERICHT = "K9";
     public static final String KEYCURRENTKTEINTRAG = "K10";
+
+    public static final String KEYKILOKALORIEN = "Kilokalorien";
+
 
     //public static final Class<?> ACTIVITYSECOND = de.fhdw.set.activitytemplate.activities.second.Init.class;
 

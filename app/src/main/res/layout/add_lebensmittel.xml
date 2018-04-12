@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bezeichnung"/>
     <EditText
         android:id="@+id/add_lebensmittel_name"
         android:layout_width="match_parent"
@@ -11,8 +19,21 @@
         android:inputType="textPersonName"
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:text="Bezeichnung" />
+        android:hint="Bezeichnung"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kilokalorien"/>
+    <EditText
+        android:id="@+id/add_lebensmittel_kilokalorien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:hint="Kilokalorien"
+        />
 
 
     <Button
@@ -23,5 +44,5 @@
         android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_alignParentBottom="true"
         />
-
+    </LinearLayout>
 </RelativeLayout>

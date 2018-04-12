@@ -13,15 +13,16 @@ public class Gui {
 
     private EditText mBezeichnung;
     private Button mSaveButton;
-
+    private EditText mKilokalorien;
 
 
     public Gui(View myView) {
 
         mBezeichnung = (EditText) myView.findViewById(R.id.add_lebensmittel_name);
         mSaveButton = (Button) myView.findViewById(R.id.add_lebensmittel_save);
-
+        mKilokalorien = (EditText) myView.findViewById(R.id.add_lebensmittel_kilokalorien);
     }
+    public String getKilokalorien(){return  mKilokalorien.getText().toString();}
 
     public String getBezeichnung()
     {

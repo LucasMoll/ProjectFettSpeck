@@ -54,6 +54,7 @@
                 android:layout_width="0pt"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:inputType="numberDecimal"
                 android:id="@+id/lebensmitteldetail_addmenge"/>
             <Button
                 android:layout_width="wrap_content"
