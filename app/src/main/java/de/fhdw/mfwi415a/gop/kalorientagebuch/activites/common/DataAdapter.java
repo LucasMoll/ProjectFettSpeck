@@ -125,4 +125,9 @@ public class DataAdapter {
             throw mSQLException;
         }
     }
+
+    public void writeNewLebensmittel(String bezeichnung) {
+        String sql = "insert into Lebensmittel (Bezeichnung, delflg) values (\"" + bezeichnung + "\", 0);";
+        writeData(sql, "writeLebensmittel");
+    }
 }
