@@ -41,7 +41,6 @@ public class ApplicationLogic {
     private void initGui() {
         DailyLimit = getDailyMax();
         usedLimit = getUsedLimit();
-        Log.d("TEST", String.valueOf(usedLimit));
         showGerichteOfDay();
         changeBarValue();
         setLimitText();
@@ -95,11 +94,6 @@ public class ApplicationLogic {
         mGui.getmMotivationText().setText(text);
     }
 
-    /*public void onActivityReturned(int requestCode, int resultCode, Intent data) {
-
-    }*/
-
-
     public void onPlusFabClicked() {
         changeFragment(new AddKTitemFragment(), 0);
 
@@ -150,8 +144,7 @@ public class ApplicationLogic {
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        //Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
-        Cursor cursor = mDbHelper.getGerichteOfDay("11.04.2018");
+        Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
