@@ -41,7 +41,6 @@ public class ApplicationLogic {
     private void initGui() {
         DailyLimit = getDailyMax();
         usedLimit = getUsedLimit();
-        Log.d("TEST", String.valueOf(usedLimit));
         showGerichteOfDay();
         changeBarValue();
         setLimitText();
@@ -50,7 +49,7 @@ public class ApplicationLogic {
     private void initListener() {
         ClickListener cl;
 
-         cl = new ClickListener(this);
+        cl = new ClickListener(this);
         mGui.getmHomePlusFab().setOnClickListener(cl);
         mGui.getmListView().setOnItemClickListener(new OnItemClickListener(this));
     }
@@ -58,8 +57,7 @@ public class ApplicationLogic {
     private void changeBarValue() {
         int unusedSize = 0;
 
-        if (usedLimit >= DailyLimit)
-        {
+        if (usedLimit >= DailyLimit) {
             unusedSize = 0;
         } else {
 
@@ -70,35 +68,28 @@ public class ApplicationLogic {
         mGui.setmUnusedBarSizeAndText(unusedSize, (unusedSize + " kcal"));
     }
 
-    private void setSnackbar(String s){
+    private void setSnackbar(String s) {
         mGui.setSnackbar(s);
     }
 
-    public void onListItemClicked(int i){
+    public void onListItemClicked(int i) {
         String s = String.valueOf(mIndexList.get(i));
         setSnackbar(s);
 //TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben (Bundle: "KT_ID",mIndexList.get(i))
     }
 
-    private void setLimitText()
-    {
+    private void setLimitText() {
         String text;
-        if (usedLimit<DailyLimit)
-        {
-            text = "Du darfst heute noch " + (DailyLimit-usedLimit) + " kcal zur dir nehmen, bevor du dein Ziel überschreitest.";
-        }else if (usedLimit>DailyLimit)
-        {
-            text = "Du hast dein Ziel heute leider schon um "+ (usedLimit-DailyLimit) +" kcal überschritten!";
+        if (usedLimit < DailyLimit) {
+            text = "Du darfst heute noch " + (DailyLimit - usedLimit) + " kcal zur dir nehmen, bevor du dein Ziel überschreitest.";
+        } else if (usedLimit > DailyLimit) {
+            text = "Du hast dein Ziel heute leider schon um " + (usedLimit - DailyLimit) + " kcal überschritten!";
+        } else {
+            text = "Du hast dein Ziel erreicht!";
         }
-        else { text = "Du hast dein Ziel erreicht!";}
 
         mGui.getmMotivationText().setText(text);
     }
-
-    /*public void onActivityReturned(int requestCode, int resultCode, Intent data) {
-
-    }*/
-
 
     public void onPlusFabClicked() {
         changeFragment(new AddKTitemFragment(), 0);
@@ -144,20 +135,19 @@ public class ApplicationLogic {
     }
 
 
-    private int getUsedLimit(){
-        int i=0;
+    private int getUsedLimit() {
+        int i = 0;
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        //Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
-        Cursor cursor = mDbHelper.getGerichteOfDay("11.04.2018");
+        Cursor cursor = mDbHelper.getGerichteOfDay(getCurrentDate());
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
 
         {
-           i+= cursor.getInt(cursor.getColumnIndex("Summe"));
+            i += cursor.getInt(cursor.getColumnIndex("Summe"));
             cursor.moveToNext();
         }
         cursor.close();
@@ -165,7 +155,7 @@ public class ApplicationLogic {
 
     }
 
-    private void showGerichteOfDay(){
+    private void showGerichteOfDay() {
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
@@ -178,7 +168,7 @@ public class ApplicationLogic {
         while (!cursor.isAfterLast())
 
         {
-            gerichte.add(cursor.getString(0) +": "+ cursor.getString(1) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("Summe"))) +" kcal)");
+            gerichte.add(cursor.getString(0) + ": " + cursor.getString(1) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("Summe"))) + " kcal)");
             mIndexList.add(cursor.getInt(3));
             cursor.moveToNext();
         }
@@ -188,8 +178,8 @@ public class ApplicationLogic {
 
     }
 
-    private void setmListViewText(ArrayList<String> arrayList){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, arrayList );
+    private void setmListViewText(ArrayList<String> arrayList) {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, arrayList);
         mGui.getmListView().setAdapter(arrayAdapter);
     }
 

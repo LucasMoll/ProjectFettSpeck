@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddLebensmittelFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.LebensmittelDetailFragment;
 //import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
@@ -28,15 +29,11 @@ public class ApplicationLogic {
         mContext = context;
         initGui();
         initListener();
-
-
     }
 
     private void initGui() {
-
         // initialize view attributes
         getArrayAdapterAllLebensmittel();
-
     }
 
     private void initListener() {
@@ -46,8 +43,6 @@ public class ApplicationLogic {
         mGui.getmLebensmittelPlusFab().setOnClickListener(cl);
         mGui.getListViewLebensmittel().setOnItemClickListener(new OnItemClickListener(this));
     }
-
-
 
     private void getArrayAdapterAllLebensmittel()
     {
@@ -71,25 +66,23 @@ public class ApplicationLogic {
 
 
     public void onPlusFabClicked() {
-        changeFragment(new LebensmittelDetailFragment(), 0);
-
+        changeFragment(new AddLebensmittelFragment(), 0);
     }
 
     private void changeFragment(Fragment f, int i) {
         Activity activity = (Activity) mContext;
 
         Bundle bundle = new Bundle();
-        bundle.putInt("KT_ID", i);
+        bundle.putInt("Lebensmittel_ID", i);
         f.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag").commit();
     }
 
     public void onListItemClicked(int i){
         String s = String.valueOf(mIndexList.get(i));
-
-//TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben (Bundle: "KT_ID",mIndexList.get(i))
+        changeFragment(new LebensmittelDetailFragment(), i);
     }
 
 
