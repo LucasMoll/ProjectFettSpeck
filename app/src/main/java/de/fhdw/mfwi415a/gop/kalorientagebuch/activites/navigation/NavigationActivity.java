@@ -43,9 +43,10 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if (savedInstanceState == null){
-        setName(navigationView);
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();}
+        if (savedInstanceState == null) {
+            setName(navigationView);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new HomeFragment()).commit();
+        }
     }
 
     private void setName(NavigationView navigationView) {
@@ -100,8 +101,6 @@ public class NavigationActivity extends AppCompatActivity
     }
 
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,40 +122,30 @@ public class NavigationActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment = null;
 
-        switch (id){
+        switch (id) {
             case R.id.nav_home:
                 fragment = new HomeFragment();
                 break;
-
             case R.id.nav_statistik:
                 fragment = new StatistikFragment();
                 break;
-
             case R.id.nav_menues:
                 fragment = new MenuesFragment();
                 break;
-
             case R.id.nav_lebensmittel:
                 fragment = new LebenbsmittelFragment();
                 break;
-
             case R.id.nav_profil:
                 fragment = new ProfilFragment();
                 break;
-
-            default: break;
-
+            default:
+                break;
         }
-
-
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).attach(fragment).commit();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 
@@ -19,7 +16,6 @@ import java.util.Calendar;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddKTitemFragment;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.StatistikFragment;
 
 
 public class ApplicationLogic {
@@ -40,7 +36,7 @@ public class ApplicationLogic {
 
     private void initGui() {
         DailyLimit = getDailyMax();
-        usedLimit = getUsedLimit();
+        usedLimit = getUsedLimitGerichte() + getUsedLimitLebensmittel();
         showGerichteOfDay();
         changeBarValue();
         setLimitText();
@@ -135,7 +131,7 @@ public class ApplicationLogic {
     }
 
 
-    private int getUsedLimit() {
+    private int getUsedLimitGerichte() {
         int i = 0;
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
@@ -148,6 +144,26 @@ public class ApplicationLogic {
 
         {
             i += cursor.getInt(cursor.getColumnIndex("Summe"));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return i;
+
+    }
+
+    private int getUsedLimitLebensmittel() {
+        int i = 0;
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getLebensmittelOfDay(getCurrentDate());
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            i += cursor.getInt(cursor.getColumnIndex("SUMME"));
             cursor.moveToNext();
         }
         cursor.close();
@@ -173,9 +189,28 @@ public class ApplicationLogic {
             cursor.moveToNext();
         }
 
-        setmListViewText(gerichte);
+        showLebensmittelOfDay(gerichte);
         cursor.close();
 
+    }
+
+    private void showLebensmittelOfDay(ArrayList<String> items){
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getLebensmittelOfDay(getCurrentDate());
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            items.add(cursor.getString(0) + ": " + cursor.getString(1) + " (" + String.valueOf(cursor.getInt(cursor.getColumnIndex("SUMME"))) + " kcal)");
+            mIndexList.add(cursor.getInt(2));
+            cursor.moveToNext();
+        }
+
+        setmListViewText(items);
+        cursor.close();
     }
 
     private void setmListViewText(ArrayList<String> arrayList) {

@@ -3,6 +3,7 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 
@@ -13,6 +14,7 @@ public class Gui {
     private Button mButton_hoechstsatz;
     private Button mButton_neueEinheit;
     private Button mButton_email;
+    private EditText mNameInput;
 
     public Gui(View myView){
 
@@ -24,6 +26,8 @@ public class Gui {
         mButton_hoechstsatz = (Button) myView.findViewById(R.id.button_hoechstsatz);
 
     }
+
+    public EditText getmNameInput() { return mNameInput; }
 
     public Button getmButton() {
         return mButton_alleEinheiten;

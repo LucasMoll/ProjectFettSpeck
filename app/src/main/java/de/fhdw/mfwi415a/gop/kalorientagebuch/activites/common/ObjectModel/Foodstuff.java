@@ -11,6 +11,7 @@ public class Foodstuff {
     private double _kcalsPerUnit;
     private String _quantityAbbreviation;
     private String _quantityUnit;
+    private int _quantityUnitId;
 
     public Foodstuff(int id, double kcalsPerUnit)
     {
@@ -69,6 +70,16 @@ public class Foodstuff {
         this._quantityUnit = unit;
     }
 
+    public int get_quantityUnitId()
+    {
+        return _quantityUnitId;
+    }
+
+    public void set_quantityUnitId(int quantityUnitId)
+    {
+        this._quantityUnitId = quantityUnitId;
+    }
+
     public static Foodstuff retrieveById(int id, DataAdapter dataAdapter)
     {
         Cursor cFoodstuff = dataAdapter.getData("SELECT Lebensmittel.Bezeichnung, Einheit.ID, Einheit.Bezeichnung, Einheit.Kurzbezeichnung, le.Menge FROM 'Lebensmittel'JOIN Lebensmittel_Einheit AS le, Einheit ON le.LebensmittelId = Lebensmittel.ID AND Einheit.ID = le.EinheitId WHERE Lebensmittel.ID = " + id + ";", "lgGetFoodstuff");
@@ -80,6 +91,7 @@ public class Foodstuff {
 
         double kcals = -1;
         double unitQuantity = 1;
+        int quantityUnitId = -1;
         String quantityUnit = null;
         String quantityUnitAbbr = null;
 
@@ -100,6 +112,9 @@ public class Foodstuff {
                 else {
 
                     unitQuantity = cFoodstuff.getDouble(4);
+
+                    if(!cFoodstuff.isNull(1))
+                        quantityUnitId = cFoodstuff.getInt(1);
 
                     if(!cFoodstuff.isNull(2))
                         quantityUnit = cFoodstuff.getString(2);
@@ -123,6 +138,7 @@ public class Foodstuff {
         Foodstuff foodstuff = new Foodstuff(id, kcalsPerUnit, foodstuffName);
         foodstuff.set_quantityUnit(quantityUnit);
         foodstuff.set_quantityAbbreviation(quantityUnitAbbr);
+        foodstuff.set_quantityUnitId(quantityUnitId);
 
         return foodstuff;
     }
