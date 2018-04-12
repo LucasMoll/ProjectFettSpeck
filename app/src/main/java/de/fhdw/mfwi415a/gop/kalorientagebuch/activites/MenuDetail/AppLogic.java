@@ -1,21 +1,11 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.*;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuRowAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.*;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.MenuItem;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Menu;
 
 
 public class AppLogic {
@@ -24,14 +14,11 @@ public class AppLogic {
     private Context mContext;
     private int _currentMenuID;
 
-    private String _menuName;
-
-    private ArrayList<MenuItem> _ingredients;
+    private Menu _menu;
 
     public AppLogic (Gui gui, Context context, int menuID) {
         mGui = gui;
         mContext = context;
-        _ingredients = new ArrayList<>();
 
         _currentMenuID = menuID;
         initGui();
@@ -39,7 +26,7 @@ public class AppLogic {
 
     public String get_menuName()
     {
-        return _menuName;
+        return _menu.get_menuName();
     }
 
     private void initGui() {
@@ -53,7 +40,9 @@ public class AppLogic {
         mDBHelper.createDatabase();
         mDBHelper.open();
 
-        Cursor cMenu = mDBHelper.getData("SELECT Bezeichnung FROM Gericht WHERE ID = " + _currentMenuID + ";", null);
+        _menu = Menu.retrieveById(_currentMenuID, mDBHelper);
+
+        /*Cursor cMenu = mDBHelper.getData("SELECT Bezeichnung FROM Gericht WHERE ID = " + _currentMenuID + ";", null);
 
 
         cMenu.moveToFirst();
@@ -88,18 +77,16 @@ public class AppLogic {
             _ingredients.add(item);
             cursor.moveToNext();
         }
-        cursor.close();
+        cursor.close();*/
 
         mDBHelper.close();
 
-        double caloriesSum = 0;
-
-        for(int i = 0; i < _ingredients.size(); i++)
-            caloriesSum += _ingredients.get(i).get_calories();
-
-        MenuRowAdapter menuItemArrayAdapter = new MenuRowAdapter(mContext, R.layout.ingredient_row, _ingredients);
-        mGui.getListViewIngredients().setAdapter(menuItemArrayAdapter);
-        mGui.getLblMenuTotalCalories().setText(String.format("%.2f", caloriesSum) + " kcal");
+        if(_menu != null)
+        {
+            MenuRowAdapter menuItemArrayAdapter = new MenuRowAdapter(mContext, R.layout.ingredient_row, _menu.get_menuItems());
+            mGui.getListViewIngredients().setAdapter(menuItemArrayAdapter);
+            mGui.getLblMenuTotalCalories().setText(String.format("%.2f", _menu.get_menuCalories()) + " kcal");
+        }
     }
 
 

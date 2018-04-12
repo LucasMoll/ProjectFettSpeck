@@ -99,6 +99,11 @@ public class DataAdapter {
         return getData(sql,"getMaxKTE_ID");
     }
 
+    public Cursor getMaxEinheit_ID(){
+        String sql = "select max(ID) from Einheit";
+        return getData(sql,"getMaxEintrag_ID");
+    }
+
     public Cursor getEinheitenOfLebensmittelByLebensmittelId (int id)
     {
         String sql= "select Lebensmittel.Bezeichnung As Lebensmittelbezeichnung, Einheit.Bezeichnung as Einheitenbezeichnung, Einheit.Kurzbezeichnung, Lebensmittel_Einheit.Menge from Lebensmittel inner join Lebensmittel_Einheit on Lebensmittel.ID = Lebensmittel_Einheit.LebensmittelID  join Einheit on Lebensmittel_Einheit.EinheitID = Einheit.ID where Lebensmittel.delFlg = 0 and Lebensmittel.ID = "+id;

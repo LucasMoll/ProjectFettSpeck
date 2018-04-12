@@ -3,6 +3,7 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -91,7 +92,8 @@ public class ApplicationLogic {
         F.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, F).commit();
+        FragmentTransaction ft =fragmentManager.beginTransaction().replace(R.id.content_frame, F).addToBackStack("tag");
+        ft.detach(F).attach(F).commitAllowingStateLoss();
 
     }
 
@@ -103,7 +105,8 @@ public class ApplicationLogic {
             f.setArguments(bundle);
 
             FragmentManager fragmentManager = activity.getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, f).commit();
+            FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag");
+            ft.detach(f).attach(f).commitAllowingStateLoss();
         }
 
         public void onPlusFabClicked() {
