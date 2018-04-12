@@ -2,7 +2,6 @@ package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -154,8 +153,7 @@ public class NavigationActivity extends AppCompatActivity
         }
 
 
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).attach(fragment).commit();
-
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

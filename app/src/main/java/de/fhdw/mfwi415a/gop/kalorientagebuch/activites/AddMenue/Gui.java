@@ -12,24 +12,22 @@ public class Gui {
         private ListView mLebensmittelliste;
         private Button mSaveButton;
         private View mView;
-
+        private Button mDeleteButton;
 
 
         public Gui(View myView) {
                 mView = myView;
                 mLebensmittelliste = (ListView) myView.findViewById(R.id.add_Lebensmittel);
-                mBezeichnung = (EditText) myView.findViewById(R.id.add_menue_Name);
-//                mSaveButton = (Button) myView.findViewById(R.id.add_Lebensmittel);
+               // mDeleteButton = (Button) myView.findViewById(R.id.add_menue_delete);
+
+                //mBezeichnung = (EditText) myView.findViewById(R.id.add_menue_Name);
+            // mSaveButton = (Button) myView.findViewById(R.id.add_Lebensmittel);
 
         }
 
         public ListView getmLebensmittelliste() {
             return mLebensmittelliste;
         }
-
-        public EditText getmBezeichnung() { return mBezeichnung; }
-
-        public Button getmSaveButton() { return  mSaveButton; }
 
 }
 

@@ -29,11 +29,16 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.home_layout, container, false);
-        mGui = new Gui(myView);
+        mGui = new Gui(myView, dpToPx());
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
 
         return myView;
     }
+
+    public double dpToPx() {
+        @SuppressLint({"NewApi", "LocalSuppress"}) double density = Resources.getSystem().getDisplayMetrics().density;
+        Log.d("DENSITY", String.valueOf(density));
+        return (double) density;}
 
 
 }

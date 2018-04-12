@@ -15,19 +15,18 @@ import java.util.zip.Inflater;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Gericht;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.MenuItem;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Nahrungsmittel;
 
 
-public class MenuRowAdapter extends ArrayAdapter<MenuItem> {
+public class MenuRowAdapter extends ArrayAdapter<Nahrungsmittel> {
 
     private Context context;
     private int resourceId;
-    private ArrayList<MenuItem> ingredients;
+    private ArrayList<Nahrungsmittel> ingredients;
 
     public static LayoutInflater inflater = null;
 
-    public MenuRowAdapter(Context context, int resource, ArrayList<MenuItem> ingredients)
+    public MenuRowAdapter(Context context, int resource, ArrayList<Nahrungsmittel> ingredients)
     {
         super(context, resource, ingredients);
 
@@ -52,11 +51,11 @@ public class MenuRowAdapter extends ArrayAdapter<MenuItem> {
         TextView lbl_ingredient_amount = vi.findViewById(R.id.lbl_ingredient_amount);
         TextView lbl_ingredient_calories = vi.findViewById(R.id.lbl_ingredient_calories);
 
-        MenuItem ingredient = ingredients.get(position);
+        Nahrungsmittel ingredient = ingredients.get(position);
 
-        lbl_ingredient_name.setText(ingredient.get_foodstuffName());
-        lbl_ingredient_amount.setText(ingredient.get_quantity() + " " + ingredient.get_quantityAbbreviation());
-        lbl_ingredient_calories.setText(ingredient.get_calories() + " kcal");
+        lbl_ingredient_name.setText(ingredient.get_Bezeichnung());
+
+        // TODO: Get missing data and fill in the view
 
         return vi;
     }

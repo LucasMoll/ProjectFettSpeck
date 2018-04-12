@@ -25,12 +25,13 @@ public class Gui {
     private ListView mListView;
 
 
-    public Gui(View myView) {
+    public Gui(View myView, double i) {
         mUsedBar = (TextView) myView.findViewById(R.id.home_usedBar);
         mUnusedBar = (TextView) myView.findViewById(R.id.home_unusedBar);
         mPlus = (FloatingActionButton) myView.findViewById(R.id.home_plus_fab);
         mListView = (ListView) myView.findViewById(R.id.home_listView);
         mMotivationText = (TextView) myView.findViewById(R.id.home_motivation_text);
+        mDensity = i;
         mView = myView;
     }
 
