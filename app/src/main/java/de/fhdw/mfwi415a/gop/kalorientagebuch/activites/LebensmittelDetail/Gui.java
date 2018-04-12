@@ -35,6 +35,7 @@ public class Gui {
     private Spinner mEinheitenSpinner;
     private EditText mBezeichnung;
     private EditText mMenge;
+    private Button mSaveButton;
 
     public Gui(View myView) {
         mView = myView;
@@ -45,6 +46,7 @@ public class Gui {
         mEinheitenSpinner = (Spinner) myView.findViewById(R.id.lebensmitteldetail_einheiten);
         mBezeichnung = (EditText) myView.findViewById(R.id.lebensmitteldetail_bezeichnung);
         mMenge = (EditText) myView.findViewById(R.id.lebensmitteldetail_addmenge);
+        mSaveButton = (Button) myView.findViewById(R.id.lebensmitteldetail_save);
 
         //listViewLebensmittel = (ListView) mView.findViewById(R.id.lebensmittelListView);
         //mPlus = (FloatingActionButton) myView.findViewById(R.id.lebensmittel_plus_fab);
@@ -94,6 +96,10 @@ public class Gui {
     public void populateSpinner(ArrayAdapter<String> spinnerArrayAdapter)
     {
         mEinheitenSpinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    public Button getSaveButton() {
+        return mSaveButton;
     }
 }
 

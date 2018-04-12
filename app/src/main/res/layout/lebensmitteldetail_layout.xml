@@ -18,7 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lebensmitteldetail_bezeichnung"
-        android:text="TesttextPlaceholder"/>
+        android:text=" - ERROR - "/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Speichern"
+            android:id="@+id/lebensmitteldetail_save"/>
 
 <TextView
     android:layout_width="match_parent"
@@ -30,7 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="0pt"
         android:layout_weight="1"
-        android:id="@+id/lebensmitteldetail_usedeinheiten"></ListView>
+        android:id="@+id/lebensmitteldetail_usedeinheiten">
+
+    </ListView>
 
         <TextView
             android:layout_width="match_parent"
