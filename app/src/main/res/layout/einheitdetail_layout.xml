@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <TextView
+        android:id="@+id/text_name_bez"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:textSize="20dp"
+        android:text="Einheit Bezeichnung" />
+
     <EditText
         android:id="@+id/add_einheit_name"
         android:layout_width="match_parent"
@@ -11,9 +23,21 @@
         android:inputType="textPersonName"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/text_name_bez"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:text="Bezeichnung der Einheit"
+        android:textColor="@color/text_color"/>
+
+    <TextView
+        android:id="@+id/text_einheit_kurz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kurzbezeichnung"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="20dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_below="@id/add_einheit_name"
         android:textColor="@color/text_color"/>
 
     <EditText
@@ -25,7 +49,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_below="@id/add_einheit_name"
+        android:layout_below="@id/text_einheit_kurz"
         android:textColor="@color/text_color"/>
 
     <Button
