@@ -1,5 +1,6 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddKTitem;
 
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,4 +52,8 @@ public class Gui {
 
     public View getmView(){return mView;}
 
+    public void setSnackbar(String text) {
+        Snackbar.make(mView, text, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 }

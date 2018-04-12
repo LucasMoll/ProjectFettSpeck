@@ -34,7 +34,7 @@ public class ApplicationLogic {
     private View mDialogView;
     private int currentGericht = 0;
     private int KTE_ID;
-    private String mInsert_KTEEintrag_Gericht = "INSERT INTO KTEintrag_Gericht (GerichtID,KTEintragID,EinheitID, Menge) VALUES";
+    private String mInsert_KTEEintrag_Gericht = "";
 
     public ApplicationLogic (Gui gui, Context context) {
         mGui = gui;
@@ -166,7 +166,7 @@ public class ApplicationLogic {
         TextView Menge = (TextView) mDialogView.findViewById(R.id.Portion_Menge);
         Float f = Float.parseFloat(Menge.getText().toString());
         mInsert_KTEEintrag_Gericht += " (" + currentGericht + ", " + KTE_ID + ", 7, " + f + "), ";
-        Log.d("TEST", mInsert_KTEEintrag_Gericht);
+        Log.d("OnOKCLicked", mInsert_KTEEintrag_Gericht);
     }
 
     private String getCurrentDate() {
@@ -177,13 +177,18 @@ public class ApplicationLogic {
     }
     public void onSaveClicked() {
 
-        Log.d("TEST", "onSaveClicked");
+        if (mInsert_KTEEintrag_Gericht.toString() == "")
+        {
+            mGui.setSnackbar("Bitte wähle zunächst ein Gericht aus!");
+        }
+        else {
+
 
         String insert1 = "INSERT INTO KTEintrag (ID,Zeitpunkt,Bezeichnung) VALUES" + " ("+ KTE_ID+ ", \"" + getCurrentDate()+"\", \"" + mGui.getmBezeichnung().getText().toString() + "\")";
-        String insert2 = mInsert_KTEEintrag_Gericht.substring(0, mInsert_KTEEintrag_Gericht.length()-2);
+        String insert2 = "INSERT INTO KTEintrag_Gericht (GerichtID,KTEintragID,EinheitID, Menge) VALUES " + mInsert_KTEEintrag_Gericht.substring(0, mInsert_KTEEintrag_Gericht.length()-2);
 
-        Log.d("TEST", insert1);
-        Log.d("TEST", insert2);
+        Log.d("Insert1", insert1);
+        Log.d("Insert2", insert2);
 
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
@@ -192,8 +197,11 @@ public class ApplicationLogic {
         mDbHelper.writeData(insert1, "AddKTEintrag");
         mDbHelper.writeData(insert2, "AddKTEintrag_Gericht");
 
+        mGui.setSnackbar("Eintrag wurde erfolgreich gespeichert!");
+
         changeFragment(new HomeFragment(), 0);
 
+        }
 
     }
 
