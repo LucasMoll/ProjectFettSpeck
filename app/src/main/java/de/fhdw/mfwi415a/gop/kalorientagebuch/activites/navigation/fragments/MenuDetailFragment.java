@@ -52,7 +52,7 @@ public class MenuDetailFragment extends Fragment {
 
         mGui = new de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.Gui(view, getActivity());
 
-        appLogic = new AppLogic(mGui, activity, menuId);
+        appLogic = new AppLogic(mGui, activity, menuId, view.getContext());
 
         activity.setTitle(appLogic.get_menuName());
 

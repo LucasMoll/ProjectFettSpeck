@@ -20,16 +20,18 @@ public class MenuRowAdapter extends ArrayAdapter<MenuItem> {
     private Context context;
     private int resourceId;
     private ArrayList<MenuItem> ingredients;
+    private View.OnTouchListener mTouchListener;
 
     public static LayoutInflater inflater = null;
 
-    public MenuRowAdapter(Context context, int resource, ArrayList<MenuItem> ingredients)
+    public MenuRowAdapter(Context context, int resource, ArrayList<MenuItem> ingredients, View.OnTouchListener touchListener)
     {
         super(context, resource, ingredients);
 
         this.context = context;
         this.resourceId = resource;
         this.ingredients = ingredients;
+        this.mTouchListener = touchListener;
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -53,6 +55,9 @@ public class MenuRowAdapter extends ArrayAdapter<MenuItem> {
         lbl_ingredient_name.setText(ingredient.get_foodstuff().get_foodstuffName());
         lbl_ingredient_amount.setText(String.format("%.2f", ingredient.get_quantity()) + " " + ingredient.get_foodstuff().get_quantityAbbreviation());
         lbl_ingredient_calories.setText(String.format("%.2f", ingredient.get_calories()) + " kcal");
+
+        //Set touchlistener for swipe
+        vi.setOnTouchListener(mTouchListener);
 
         return vi;
     }

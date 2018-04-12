@@ -12,11 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuRowAdapter;
@@ -30,19 +33,25 @@ public class AppLogic {
 
     private Gui mGui;
     private Context mContext;
+    private Context mCreationContext;
     private int _currentMenuID;
+
+    private View.OnTouchListener mTouchListener;
 
     private ClickListener clickListener;
 
     private Menu _menu;
 
-    public AppLogic (Gui gui, Context context, int menuID) {
+    public AppLogic (Gui gui, Context context, int menuID, Context creationContext) {
         mGui = gui;
         mContext = context;
+        mCreationContext = creationContext;
 
         _currentMenuID = menuID;
+
         initGui();
         initListener();
+        LoadMenu(_currentMenuID);
     }
 
     public String get_menuName()
@@ -57,13 +66,14 @@ public class AppLogic {
 
     private void initGui() {
 
-        LoadMenu(_currentMenuID);
     }
 
     private void initListener()
     {
         clickListener = new ClickListener(this);
         mGui.getmFabAddIngredient().setOnClickListener(clickListener);
+
+        mTouchListener = new SwipeOnTouchListener(this, mContext, mGui.getListViewIngredients());
     }
 
     public void LoadMenu(int menuId) {
@@ -78,7 +88,7 @@ public class AppLogic {
 
         if(_menu != null)
         {
-            MenuRowAdapter menuItemArrayAdapter = new MenuRowAdapter(mContext, R.layout.ingredient_row, _menu.get_menuItems());
+            MenuRowAdapter menuItemArrayAdapter = new MenuRowAdapter(mContext, R.layout.ingredient_row, _menu.get_menuItems(), mTouchListener); // insert touchListener here
             mGui.getListViewIngredients().setAdapter(menuItemArrayAdapter);
             mGui.getLblMenuTotalCalories().setText(String.format("%.2f", _menu.get_menuCalories()) + " kcal");
         }
@@ -183,17 +193,29 @@ public class AppLogic {
 
         ((MenuRowAdapter) mGui.getListViewIngredients().getAdapter()).add(new MenuItem(selectedFoodstuff, quantity));
 
-        String command = String.format("INSERT INTO Lebensmittel_Gericht VALUES (null, %d, %d, %d, %f)", selectedFoodstuff.get_foodstuffsId(), _currentMenuID, selectedFoodstuff.get_quantityUnitId(), quantity);
+        String command = String.format(Locale.US, "INSERT INTO Lebensmittel_Gericht VALUES (null, %d, %d, %d, %f)", selectedFoodstuff.get_foodstuffsId(), _currentMenuID, selectedFoodstuff.get_quantityUnitId(), quantity);
 
         db.writeData(command, "lgInsertNewIngredient");
         //save the data in db
         db.close();
 
         mGui.getmPopUpAddIngredient().dismiss();
+
+        Toast.makeText(mContext, String.format(mContext.getResources().getString(R.string.str_ingredient_added), selectedFoodstuff.get_foodstuffName()), Toast.LENGTH_LONG).show();
     }
 
     public void BtnCancelClicked(View view)
     {
         mGui.getmPopUpAddIngredient().dismiss();
+    }
+
+    public void removeIngredient(MenuItem item)
+    {
+        DataAdapter da = new DataAdapter(mContext);
+        da.open();
+
+        da.writeData(String.format(Locale.US,"DELETE FROM Lebensmittel_Gericht WHERE GerichtId = %d AND LebensmittelId = %d;", _currentMenuID, item.get_foodstuff().get_foodstuffsId()), "lgRemoveIngredient");
+
+        da.close();
     }
 }

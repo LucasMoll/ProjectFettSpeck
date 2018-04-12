@@ -11,7 +11,7 @@
 
     <Spinner
         android:id="@+id/spinnerIngredient"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/spinner_bg"
         android:spinnerMode="dialog"
@@ -19,14 +19,6 @@
         android:textAlignment="viewEnd"
         android:layout_gravity="end"
         android:gravity="end"/>
-
-    <!--<Spinner
-        android:id="@+id/spinnerUnit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:foreground="#FFFFFF"
-        android:spinnerMode="dialog"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +49,8 @@
             android:textAlignment="viewEnd"
             android:layout_gravity="end|center_vertical"
             android:gravity="end|center_vertical"
+            android:paddingLeft="2dp"
+            android:paddingStart="2dp"
             android:paddingRight="2dp"
             android:paddingEnd="2dp"
             android:textSize="20sp"
