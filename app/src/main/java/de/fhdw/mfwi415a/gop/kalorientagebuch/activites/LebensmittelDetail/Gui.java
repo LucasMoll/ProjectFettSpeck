@@ -12,6 +12,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 
 public class Gui {
@@ -87,6 +89,11 @@ public class Gui {
     public void setSnackbar(String text) {
         Snackbar.make(mView, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    public void populateSpinner(ArrayAdapter<String> spinnerArrayAdapter)
+    {
+        mEinheitenSpinner.setAdapter(spinnerArrayAdapter);
     }
 }
 

@@ -31,10 +31,10 @@ public class LebensmittelDetailFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.lebensmitteldetail_layout, container, false);
         mGui = new Gui(myView);
-        mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
+        int lebensmittelID =this.getArguments().getInt("Lebensmittel_ID");
+        mApplicationLogic = new ApplicationLogic(mGui,getActivity(), lebensmittelID);
         getActivity().setTitle("Lebensmitteldetail");
 
-        mApplicationLogic.setLebensmittelID(this.getArguments().getInt("Lebensmittel_ID"));
         return myView;
     }
 }
