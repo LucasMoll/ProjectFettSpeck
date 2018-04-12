@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings.ApplicationLogic;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings.Dialog;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings.Gui;
 
 /**
@@ -19,11 +18,6 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Settings.Gui;
 public class ProfilFragment extends android.app.Fragment {
 
     View myView;
-
-    private Button button_name;
-    private Button button_hoechstsatz;
-    private Button neue_Einheit;
-    private Button alle_Einheiten;
 
     private Gui mGui;
     private ApplicationLogic mApplicationLogic;
@@ -36,6 +30,7 @@ public class ProfilFragment extends android.app.Fragment {
         getActivity().setTitle("Profil");
         mGui = new Gui(myView);
         mApplicationLogic = new ApplicationLogic(mGui,getActivity() );
+
         return myView;
 
    }
