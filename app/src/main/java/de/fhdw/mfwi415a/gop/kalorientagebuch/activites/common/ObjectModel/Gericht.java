@@ -19,8 +19,6 @@ public class Gericht implements Parcelable {
     public Gericht()
     {
         _Nahrungsmittel = new Bundle();
-
-
     }
 
     public String get_Bezeichnung() {
@@ -32,6 +30,8 @@ public class Gericht implements Parcelable {
     }
 
     public Bundle get_Nahrungsmittel() {return  _Nahrungsmittel;}
+
+    public void set_Nahrunsmittel(Bundle ingredients) { this._Nahrungsmittel = ingredients; }
 
     @Override
     public String toString() {

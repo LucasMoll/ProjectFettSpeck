@@ -1,5 +1,6 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,18 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.AppLogic;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuRowAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.ApplicationLogic;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Menues.Gui;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.Data;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.*;
 
 public class MenuDetailFragment extends Fragment {
+
+    private AppLogic appLogic;
+    private de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.Gui mGui;
 
     public MenuDetailFragment() {
 
@@ -36,19 +43,18 @@ public class MenuDetailFragment extends Fragment {
         int menuId = -1;
 
         if(args != null)
-            menuId = args.getInt("KT_ID");
+            menuId = args.getInt("Menue_ID");
 
-        if(menuId == -1)
+        if(menuId == 0)
             return view;
 
-        DataAdapter da = new DataAdapter(view.getContext());
-        //da.getData();
-        ArrayList<Nahrungsmittel> ingredients = null; //Todo: get list of ingredients
+        Activity activity = getActivity();
 
-        ListView lwIngredients = view.findViewById(R.id.LwMenuEntries);
+        mGui = new de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail.Gui(view, getActivity());
 
-        MenuRowAdapter adapter = new MenuRowAdapter(view.getContext(), R.layout.ingredient_row, ingredients);
-        lwIngredients.setAdapter(adapter);
+        appLogic = new AppLogic(mGui, activity, menuId);
+
+        activity.setTitle(appLogic.get_menuName());
 
         return view;
     }
