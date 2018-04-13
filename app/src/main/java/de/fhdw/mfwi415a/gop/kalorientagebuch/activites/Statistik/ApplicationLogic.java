@@ -1,8 +1,11 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Statistik;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Foodstuff;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.KTEntry;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.ObjectModel.Menu;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.KTEntryDetailFragment;
 
 
 public class ApplicationLogic {
@@ -57,6 +61,8 @@ public class ApplicationLogic {
 
         mGui.getmLblDate().setOnClickListener(cl);
 
+        mGui.getListViewEntries().setOnItemClickListener(new OnItemClickListener(this));
+
     }
 
     public Context getContext()
@@ -74,6 +80,21 @@ public class ApplicationLogic {
 
         mGui.getmLblDate().setText(dateFormat.format(calendar.getTime()));
         LoadData(calendar);
+    }
+
+    public void onListItemClicked(int ktEntryId) {
+        changeFragment( new KTEntryDetailFragment(), ktEntryId);
+    }
+
+    private void changeFragment(Fragment f, int i) {
+        Activity activity = (Activity) mContext;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("KT_ID", i);
+        f.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag").commit();
     }
 
     private void LoadInitialAverageData()

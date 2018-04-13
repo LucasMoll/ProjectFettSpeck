@@ -1,8 +1,10 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.KTEntryDetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -70,6 +72,50 @@ public class ApplicationLogic {
 
     public String getEntryName() {
         return mCurrentEntry.get_description();
+    }
+
+    public void duplicateEntry()
+    {
+        DataAdapter da = new DataAdapter(mContext);
+
+        da.open();
+
+        da.writeData(String.format("INSERT INTO KTEintrag VALUES (null, DATE('now'), '%s')", mCurrentEntry.get_description()), "lgInsertKTEntry");
+
+        Cursor cIdNew = da.getData("SELECT MAX(ID) FROM KTEintrag;", "lgGetMaxKTId");
+
+        if(cIdNew.getCount() > 0)
+        {
+            int newEntryId = cIdNew.getInt(0);
+
+            // duplicate MenuEntries
+
+            da.writeData(String.format("INSERT INTO KTEintrag_Gericht (ID, GerichtId, KTEintragID, EinheitId, Menge) SELECT null, GerichtId, %d, EinheitId, Menge FROM KTEintrag_Gericht WHERE KTEintragId = %d;", newEntryId, mCurrentEntry.get_id()), "lgCopyMenuData");
+
+            // duplicate foodstuffEntries
+
+            da.writeData(String.format("INSERT INTO KTEintrag_Lebensmittel (ID, LebensmittelId, KTEintragID, EinheitId, Menge) SELECT null, LebensmittelId, %d, EinheitId, Menge FROM KTEintrag_Lebensmittel WHERE KTEintragId = %d;", newEntryId, mCurrentEntry.get_id()), "lgCopyFoodstuffData");
+
+        }
+
+        da.close();
+
+        Toast.makeText(mContext, "Eintrag " +  mCurrentEntry.get_description() + " wurde dupliziert", Toast.LENGTH_LONG).show();
+    }
+
+    public void deleteEntry()
+    {
+        DataAdapter da = new DataAdapter(mContext);
+
+        da.open();
+
+        da.writeData("DELETE FROM KTEintrag WHERE ID = " + mCurrentEntry.get_id(), "lgDeleteKTEntry");
+
+        da.close();
+
+        Toast.makeText(mContext, "Eintrag " +  mCurrentEntry.get_description() + " wurde gelöscht", Toast.LENGTH_LONG).show();
+
+        ((Activity)mContext).onBackPressed();
     }
 
     public void LoadData(int entryId) {
