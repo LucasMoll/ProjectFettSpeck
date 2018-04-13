@@ -16,6 +16,7 @@ import java.util.Calendar;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddKTitemFragment;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.KTEntryDetailFragment;
 
 
 public class ApplicationLogic {
@@ -69,9 +70,9 @@ public class ApplicationLogic {
     }
 
     public void onListItemClicked(int i) {
-        String s = String.valueOf(mIndexList.get(i));
-        setSnackbar(s);
-//TODO: Fragment wechseln und mIndexList.get(i) als Argument übergeben (Bundle: "KT_ID",mIndexList.get(i))
+        changeFragment( new KTEntryDetailFragment(), mIndexList.get(i));
+
+
     }
 
     private void setLimitText() {

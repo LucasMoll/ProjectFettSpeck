@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/lebensmittellist">
 
 
     <EditText
@@ -14,26 +15,44 @@
         android:layout_margin="@dimen/activity_vertical_margin"
         android:text="Bezeichnung" />
 
-    <ListView
-        android:id="@+id/add_Lebensmittel"
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_menue_Name"
+        android:id="@+id/add_menue_lebensmittel"
+        android:layout_margin="@dimen/activity_vertical_margin">
+    </Spinner>
+
+    <EditText
+        android:id="@+id/add_menue_lebensmittelanzahl"
+        android:layout_below="@+id/add_menue_lebensmittel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_below="@id/add_menue_Name"
-        android:layout_above="@id/add_menue_save"
-        />
+        android:text="Menge" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_below="@+id/add_menue_lebensmittelanzahl"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_menue_einheiten"
+        android:layout_margin="@dimen/activity_vertical_margin">
+    </Spinner>
 
 
-
-
+    <Button
+        android:id="@+id/add_lebensmittel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lebensmittel hinzufügen"
+        android:layout_above="@+id/add_menue_save"/>
 
     <Button
         android:id="@+id/add_menue_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="speichern"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -12,15 +12,9 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.Gui;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.OnItemClickListener;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.Einheiten.ClickListener;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddEinheitFragment;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.AddMenueFragment;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitenFragment;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.EinheitendetailFragment;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuDetailFragment;
 
 public class ApplicationLogic {
 
@@ -83,7 +77,7 @@ public class ApplicationLogic {
 
     public void OnListItemClicked(int i) {
 
-        changeFragment(new EinheitendetailFragment(), 0);
+        changeFragment(new EinheitendetailFragment(), i);
 
     }
 

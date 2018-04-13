@@ -33,9 +33,11 @@ public class ApplicationLogic {
     public ApplicationLogic(Gui gui, Context context, int EinheitID) {
         mGui = gui;
         mContext = context;
+        currentEinheit_ID = EinheitID;
         initGui();
         initListener();
-        currentEinheit_ID = EinheitID;
+
+        Log.d("Test EinheitID", String.valueOf(currentEinheit_ID));
 
     }
 
@@ -76,8 +78,8 @@ public class ApplicationLogic {
         String textBezeichnung;
         String textKurzbezeichnung;
 
-        textBezeichnung = "Aktuelle Bezeichnung:" + aktuelleBezeichnung;
-        textKurzbezeichnung = "Aktuelle Bezeichnung:" + aktuelleKurzBezeichnung;
+        textBezeichnung = "Aktuelle Bezeichnung: " + aktuelleBezeichnung;
+        textKurzbezeichnung = "Aktuelle Bezeichnung: " + aktuelleKurzBezeichnung;
 
         mGui.getmBezeichnungText().setText(textBezeichnung);
         mGui.getmKurzText().setText(textKurzbezeichnung);
@@ -91,12 +93,13 @@ public class ApplicationLogic {
         mDBHelper.createDatabase();
         mDBHelper.open();
 
-        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";",null);
+        Cursor cursor = mDBHelper.getNameofEinheit(currentEinheit_ID);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             aktuelleBezeichnung = cursor.getString(cursor.getColumnIndex("Bezeichnung"));
+            cursor.moveToNext();
         }
 
         cursor.close();
@@ -112,16 +115,16 @@ public class ApplicationLogic {
         mDBHelper.createDatabase();
         mDBHelper.open();
 
-        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";", null);
+        Cursor cursor = mDBHelper.getKurzBezofEinheit(currentEinheit_ID);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             aktuelleKurzBezeichnung = cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
+            cursor.moveToNext();
         }
 
         cursor.close();
         mDBHelper.close();
-
 
         mGui.getmKurzText().setText(aktuelleKurzBezeichnung);
 
@@ -133,7 +136,6 @@ public class ApplicationLogic {
         delFlg = 0;
 
         String insert1 = "UPDATE Einheit SET Bezeichnung=\""+ mGui.getmBezeichnung().getText().toString() +"\", Kurzbezeichnung=\""+ mGui.getmKurzBezeichnung().getText().toString() +"\", delFlg=\""+ delFlg + "\"WHERE ID =" + currentEinheit_ID;
-        Log.d("Test", insert1);
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
