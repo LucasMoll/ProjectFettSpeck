@@ -170,6 +170,12 @@ public class DataAdapter {
         writeData(sql, "writeEinheitToLebensmittel");
     }
 
+    public void writeEinheitToLebensmittel(int lebensmittelID, int einheitID, double menge)
+    {
+        String sql = "insert into Lebensmittel_Einheit (LebensmittelID, EinheitID, Menge) Values ("+lebensmittelID+", "+ einheitID+", " + menge + ")";
+        writeData(sql, "writeEInheitToLebensmittel");
+    }
+
     public void deleteLebensmittel_Einheiten(int idLebensmittel, int idEinheit)
     {
         String sql = "delete from Lebensmittel_Einheit where EinheitID = "+idEinheit+" And LebensmittelID = "+idLebensmittel;
@@ -190,5 +196,22 @@ public class DataAdapter {
     public void updateLebensmittelBezeichnung(String lebensmittelOld, String lebensmittelNew) {
         String sql = "update Lebensmittel set Bezeichnung = \""+lebensmittelNew+"\" where Bezeichnung =\""+lebensmittelOld+"\"";
         writeData(sql, "setDeleteFlagLebensmittel");
+    }
+
+    public Cursor getLebensmittel_EinheitByLebensmittelID(int id)
+    {
+        String sql = "Select * from Lebensmittel_Einheit Where Lebensmittelid = "+ id;
+        return getData(sql, "getLebensmittel_EinheitByLebensmittelID");
+    }
+
+    public Cursor getLastLebensmittel() {
+        String sql = "SELECT id FROM Lebensmittel ORDER BY ID DESC LIMIT 1";
+        return getData(sql, "getLastLebensmittel");
+    }
+
+    public void writeCopyOfLebensmittel(int id)
+    {
+        String sql = "Insert into Lebensmittel (Bezeichnung, delflg) Select Bezeichnung, delflg from Lebensmittel where Id = " + id;
+        writeData(sql, "writeCopyOfLebensmittel");
     }
 }

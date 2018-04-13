@@ -79,7 +79,7 @@ public class ApplicationLogic {
 //                kurzbezeichnung.add(cursor.getString(cursor.getColumnIndex("Kurzbezeichnung")));
 //                menge.add(cursor.getDouble(cursor.getColumnIndex("Menge")));
                 //quick-version
-                String entry = cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung"))+" - "+cursor.getDouble(cursor.getColumnIndex("Menge"))+cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
+                String entry = cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung")) + " - " + cursor.getDouble(cursor.getColumnIndex("Menge")) + cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
                 bezeichnungen.add(entry);
                 mIndexListUsedEInheiten.add(cursor.getInt(cursor.getColumnIndex("ID")));
                 cursor.moveToNext();
@@ -117,8 +117,7 @@ public class ApplicationLogic {
         mGui.populateEinheitenListView(arrayAdapter);
     }
 
-    private void getUnusedEinheiten(int lebensmittelID)
-    {
+    private void getUnusedEinheiten(int lebensmittelID) {
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
@@ -137,8 +136,7 @@ public class ApplicationLogic {
         populateSpinner(bezeichnungen);
     }
 
-    private void populateSpinner(ArrayList<String> spinnerArray)
-    {
+    private void populateSpinner(ArrayList<String> spinnerArray) {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                 (mContext, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
@@ -167,7 +165,11 @@ public class ApplicationLogic {
     public void onListItemLongClicked(int i) {
         //get lebensmittelID from corresponding arraylist
         int id = mIndexListUsedEInheiten.get(i);
+
+        int newid = editLebensmittel(mLebensmittelID);
+        getLebensmittelByID(newid);
         deleteLebensmittel_Einheit(mLebensmittelID, id);
+
     }
 
     public void onClickDelete() {
@@ -177,16 +179,14 @@ public class ApplicationLogic {
 
     public void onClickAdd() {
         try {
+            getLebensmittelByID(editLebensmittel(mLebensmittelID));
+
             addEinheitToLebensmittel(mLebensmittel, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String x = mGui.getmMenge().getText().toString();
-            if (x.equals(""))
-            {
+            if (x.equals("")) {
                 mGui.setSnackbar("Es fehlt die Angabe der Menge");
-            }
-            else {
+            } else {
                 mGui.setSnackbar("Du hast keine weiteren Einheiten angelegt.");
             }
         }
@@ -203,6 +203,8 @@ public class ApplicationLogic {
     }
 
     public void onClickSave() {
+        getLebensmittelByID(editLebensmittel(mLebensmittelID));
+
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
@@ -211,5 +213,50 @@ public class ApplicationLogic {
 
 
         mGui.setSnackbar("Neuer Name gespeichert.");
+    }
+
+    private int editLebensmittel(int lebensmittelID) {
+
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+//make(JUST) copy of lebensmittel
+        mDbHelper.writeCopyOfLebensmittel(lebensmittelID);
+//set deleteflag of old lebensmittel
+        mDbHelper.setDeleteFlagLebensmittel(lebensmittelID);
+//get id of new lebensmittel
+        int newId = getLastLebensmittelID();
+//get einheiten of old lebensmittel
+        Cursor cursor = mDbHelper.getLebensmittel_EinheitByLebensmittelID(lebensmittelID);
+        cursor.moveToFirst();
+
+        double menge;
+        int einheitID;
+        while (!cursor.isAfterLast()) {
+            menge = (cursor.getDouble(cursor.getColumnIndex("Menge")));
+            einheitID = (cursor.getInt(cursor.getColumnIndex("EinheitID")));
+
+            mDbHelper.writeEinheitToLebensmittel(newId, einheitID, menge);
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return newId;
+    }
+
+    private int getLastLebensmittelID()
+    {
+        int id;
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getLastLebensmittel();
+
+        cursor.moveToFirst();
+        id = cursor.getInt(cursor.getColumnIndex("ID"));
+        cursor.close();
+        mDbHelper.close();
+        return id;
     }
 }
