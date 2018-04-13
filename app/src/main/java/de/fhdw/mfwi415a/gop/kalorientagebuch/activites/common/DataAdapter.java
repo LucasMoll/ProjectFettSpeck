@@ -113,6 +113,16 @@ public class DataAdapter {
         return getData(sql,"getMaxEintrag_ID");
     }
 
+    public Cursor getMaxGericht_ID(){
+        String sql = "select max(ID) from Gericht";
+        return getData(sql, "getMaxGericht_ID");
+    }
+
+    public Cursor getMaxLebensmittelGericht_ID(){
+        String sql = "select max(ID) from Lebensmittel_Gericht";
+        return getData(sql, "getMaxLebensmittelGericht_ID");
+    }
+
     public Cursor getEinheitenOfLebensmittelByLebensmittelId (int id)
     {
         String sql= "select Einheit.ID, Lebensmittel.Bezeichnung As Lebensmittelbezeichnung, Einheit.Bezeichnung as Einheitenbezeichnung, Einheit.Kurzbezeichnung, Lebensmittel_Einheit.Menge from Lebensmittel inner join Lebensmittel_Einheit on Lebensmittel.ID = Lebensmittel_Einheit.LebensmittelID  join Einheit on Lebensmittel_Einheit.EinheitID = Einheit.ID where Lebensmittel.delFlg = 0 and Lebensmittel.ID = "+id;
@@ -123,6 +133,17 @@ public class DataAdapter {
         String sql = "select * From Einheit where Bezeichnung not in (select Einheit.Bezeichnung From Einheit join Lebensmittel_Einheit on Einheit.ID = Lebensmittel_Einheit.EinheitID where Einheit.delFlg = 0 And Lebensmittel_Einheit.LebensmittelID = " + id + ") and Einheit.delFlg = 0";
         return getData(sql, "getUnusedEinheitenFromLebensmittelId");
     }
+
+    public Cursor getIDofLebensmittel(String s){
+        String sql = "select ID from Lebensmittel where Bezeichnung=\""+s+"\"";
+        return  getData(sql, "getIdzuBezeichnung");
+    }
+
+    public Cursor getIDofEinheit(String s){
+        String sql = "select ID from Einheit where Bezeichnung=\""+s+"\"";
+        return  getData(sql, "getIdzuEinheit");
+    }
+
 
     public Cursor getData(String sqlQuery, String logName) {
         try {

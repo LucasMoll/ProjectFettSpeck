@@ -1,33 +1,36 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddMenue;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddMenue.ClickListener;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddMenue.DialogClickListener;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddMenue.Gui;
-import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.AddMenue.OnItemClickListener;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.MenuesFragment;
+
 
 public class ApplicationLogic {
 
-
     private Gui mGui;
     private Context mContext;
-    private DialogClickListener dcl;
     private View mDialogView;
-    private int currentLebensmittel = 0;
-    private ArrayList<Integer> mIDList = new ArrayList<Integer>();
+    private String Lebensmittelbezeichnung;
+    private int Lebensmittelid;
+    private int MenueMaxID;
+    private String Einheitbezeichnung;
+    private int EinheitID;
+    private int LebensmittelGerichtID;
+    private String Lebensmittelbez;
+    private ArrayList<Integer> mIDListEinheiten = new ArrayList<Integer>();
+    private ArrayList<Integer> mIDListLebensmittel = new ArrayList<Integer>();
 
     public ApplicationLogic(Gui gui, Context context) {
         mGui = gui;
@@ -37,92 +40,241 @@ public class ApplicationLogic {
     }
 
     private void initGui() {
-        showAllLebensmittel();
+        showallEinheiten();
+        showallLebensmittel();
+        MenueMaxID = getMaxGerichtID()+1;
+
     }
 
     private void initListener() {
 
-        ClickListener cl = new ClickListener(this);
+        ClickListener cl;
 
-        dcl = new DialogClickListener(this);
-        mGui.getmLebensmittelliste().setOnItemClickListener(new OnItemClickListener(this));
+        cl = new ClickListener(this);
+        mGui.getmAddLebensmittel().setOnClickListener(cl);
+        mGui.getmSaveButton().setOnClickListener(cl);
     }
 
-    private void showAllLebensmittel() {
+
+    private void populateSpinnerLebensmittel(ArrayList<String> spinnerArray)
+    {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                (mContext, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        mGui.populateSpinnerLebensmittel(spinnerArrayAdapter);
+    }
+
+    private void populateSpinnerEinheiten(ArrayList<String> spinnerArray)
+    {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                (mContext, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        mGui.populateSpinnerEinheiten(spinnerArrayAdapter);
+    }
+
+    public void onClickAdd() {
+
+            Lebensmittelid = getLebensmittelIDbyBezeichnung();
+            EinheitID = getEinheitIDbyBezeichnung();
+
+            LebensmittelGerichtID = getMaxLebensmittelGericht()+1;
+            int delFlg = 0;
+
+
+            String insert1 = "INSERT INTO Lebensmittel_Gericht (ID,LebensmittelID,GerichtID,EinheitID,Menge) VALUES"
+                    + " (\""+ LebensmittelGerichtID +"\",\""
+                    + Lebensmittelid +"\",\""
+                    + MenueMaxID +"\",\""
+                    + EinheitID +"\",\""
+                    + mGui.getmMenge().getText().toString() +"\")";
+
+            Log.d("Test", insert1);
+
+            DataAdapter mDbHelper = new DataAdapter(mContext);
+            mDbHelper.createDatabase();
+            mDbHelper.open();
+
+            mDbHelper.writeData(insert1, "AddEinheit");
+
+
+    }
+
+
+    public void onClickSave(){
+        int delFlg = 0;
+
+        String insert1 = "INSERT INTO Gericht (ID,Bezeichnung,delFlg) VALUES" + " ("+ MenueMaxID + ", \"" + mGui.getmBezeichnung().getText().toString() +"\", \"" + delFlg + "\")";
+
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        Cursor cursor = mDbHelper.getAllLebensmittel();
-        mIDList.clear();
-        cursor.moveToFirst();
-        ArrayList<String> bezeichnungen = new ArrayList<String>();
-        while (!cursor.isAfterLast()) {
-            mIDList.add(cursor.getInt(cursor.getColumnIndex("ID")));
-            bezeichnungen.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
-            cursor.moveToNext();
-        }
-        setmListViewText(bezeichnungen);
-        cursor.close();
+        mDbHelper.writeData(insert1, "AddGericht");
+
+        changeFragment(new MenuesFragment(), 0);
     }
 
 
-    private String getNameOfLebensmittel(int i) {
+    private int getMaxGerichtID(){
 
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
 
-        Cursor cursor = mDbHelper.getAllLebensmittel();
+        Cursor cursor = mDbHelper.getMaxGericht_ID();
 
-        ArrayList<String> name = new ArrayList<String>();
+        ArrayList<Integer> id = new ArrayList<Integer>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
 
         {
-            mIDList.add(cursor.getInt(cursor.getColumnIndex("ID")));
-            name.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
+            id.add(cursor.getInt(cursor.getColumnIndex("max(ID)")));
             cursor.moveToNext();
         }
 
         cursor.close();
+        return id.get(0);
+    }
 
-        return name.get(0);
+
+    private int getMaxLebensmittelGericht(){
+
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getMaxLebensmittelGericht_ID();
+
+        ArrayList<Integer> id = new ArrayList<Integer>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            id.add(cursor.getInt(cursor.getColumnIndex("max(ID)")));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return id.get(0);
+    }
+
+    private void changeFragment(Fragment f, int i) {
+        Activity activity = (Activity) mContext;
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag");
+        ft.detach(f).attach(f).commitAllowingStateLoss();
+    }
+
+    private void showallEinheiten() {
+        DataAdapter mDBHelper = new DataAdapter(mContext);
+        mDBHelper.createDatabase();
+        mDBHelper.open();
+
+        Cursor cursor = mDBHelper.getAllEinheiten();
+
+        ArrayList<String> einheiten = new ArrayList<String>();
+        cursor.moveToFirst();
+        mIDListEinheiten.clear();
+        while (!cursor.isAfterLast())
+
+        {
+            mIDListEinheiten.add(cursor.getInt(cursor.getColumnIndex("ID")));
+            einheiten.add(cursor.getString(cursor.getColumnIndex("Bezeichnung"))+ " (" + cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"))+")");
+            cursor.moveToNext();
+        }
+
+        setmspinnerEinheiten(einheiten);
+        cursor.close();
+
 
     }
 
-    private void setmListViewText(ArrayList<String> arrayList){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, arrayList );
-        mGui.getmLebensmittelliste().setAdapter(arrayAdapter);
+    private void setmspinnerEinheiten(ArrayList<String> einheiten) {
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, einheiten );
+        populateSpinnerEinheiten(einheiten);
     }
 
-    public void onListClicked(int i) {
+    private void showallLebensmittel() {
+        DataAdapter mDBHelper = new DataAdapter(mContext);
+        mDBHelper.createDatabase();
+        mDBHelper.open();
 
-        showDialog(mIDList.get(i));
+        Cursor cursor = mDBHelper.getAllLebensmittel();
+
+        ArrayList<String> Lebensmittel = new ArrayList<String>();
+        cursor.moveToFirst();
+        mIDListLebensmittel.clear();
+        while (!cursor.isAfterLast())
+
+        {
+            mIDListLebensmittel.add(cursor.getInt(cursor.getColumnIndex("ID")));
+            Lebensmittel.add(cursor.getString(cursor.getColumnIndex("Bezeichnung")));
+
+            cursor.moveToNext();
+        }
+
+        setmspinnerLebensmittel(Lebensmittel);
+        cursor.close();
+
 
     }
 
-    private void showDialog(int i)
-    {
+    private void setmspinnerLebensmittel(ArrayList<String> Lebensmittel) {
 
-        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.add_menue_dialog_layout, null, false);
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
-        alertBuilder.setView(mDialogView);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, Lebensmittel );
+        populateSpinnerLebensmittel(Lebensmittel);
+    }
 
-        alertBuilder.setTitle(getNameOfLebensmittel(i));
-        currentLebensmittel = i;
+    private int getLebensmittelIDbyBezeichnung(){
 
-        alertBuilder.setCancelable(true).setPositiveButton("OK", dcl);
-        alertBuilder.setCancelable(true).setNegativeButton("Abbrechen", dcl);
+        Lebensmittelbezeichnung = String.valueOf(mGui.getSpinnerLebensmittel().getSelectedItem());
 
-        Dialog dialog = alertBuilder.create();
-        dialog.show();
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getIDofLebensmittel(Lebensmittelbezeichnung);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+            Lebensmittelid = cursor.getInt(cursor.getColumnIndex("ID"));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return Lebensmittelid;
+
 
     }
 
-    public void onOkClicked() {
-        TextView Menge = (TextView) mDialogView.findViewById(R.id.Portion_Menue);
-        Float f = Float.parseFloat(Menge.getText().toString());
+    private int getEinheitIDbyBezeichnung(){
+
+        Einheitbezeichnung = String.valueOf(mGui.getSpinnerEinheiten().getSelectedItem());
+
+        DataAdapter mDbHelper = new DataAdapter(mContext);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        Cursor cursor = mDbHelper.getIDofEinheit(Einheitbezeichnung);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+
+        {
+
+            EinheitID = cursor.getInt(cursor.getColumnIndex("ID"));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return EinheitID;
     }
 
 }
