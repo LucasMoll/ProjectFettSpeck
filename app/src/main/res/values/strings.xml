@@ -20,7 +20,7 @@
 
     //Name
     <string name="text_persData">Persönliche Daten</string>
-    <string name="button_name">Dein Name</string>
+    <string name="button_name">Persönliche Daten ändern</string>
     <string name="str_save">Speichern</string>
     <string name="str_duplicate">Duplizieren</string>
     <string name="str_delete">Löschen</string>
