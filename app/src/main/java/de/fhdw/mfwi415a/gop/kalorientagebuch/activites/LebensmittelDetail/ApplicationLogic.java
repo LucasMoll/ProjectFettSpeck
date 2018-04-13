@@ -72,18 +72,11 @@ public class ApplicationLogic {
         cursor.moveToFirst();
 
         ArrayList<String> bezeichnungen = new ArrayList<String>();
-        ArrayList<String> kurzbezeichnung = new ArrayList<String>();
-        ArrayList<Double> menge = new ArrayList<Double>();
 
         if (!cursor.isAfterLast()) {
             mLebensmittel = (cursor.getString(cursor.getColumnIndex("Lebensmittelbezeichnung")));
             while (!cursor.isAfterLast()) {
 
-                //part-of-longversion
-//                bezeichnungen.add(cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung")));
-//                kurzbezeichnung.add(cursor.getString(cursor.getColumnIndex("Kurzbezeichnung")));
-//                menge.add(cursor.getDouble(cursor.getColumnIndex("Menge")));
-                //quick-version
                 String entry = cursor.getString(cursor.getColumnIndex("Einheitenbezeichnung")) + " - " + cursor.getDouble(cursor.getColumnIndex("Menge")) + cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
                 bezeichnungen.add(entry);
                 mIndexListUsedEInheiten.add(cursor.getInt(cursor.getColumnIndex("ID")));
@@ -95,12 +88,10 @@ public class ApplicationLogic {
             cursor.moveToFirst();
             mLebensmittel = cursor.getString(cursor.getColumnIndex("Bezeichnung"));
         }
-
         mGui.getBezeichnung().setText(mLebensmittel);
 //einheiten
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, bezeichnungen);
         mGui.populateEinheitenListView(arrayAdapter);
-
     }
 
     private void getArrayAdapterAllLebensmittel() {
@@ -172,11 +163,11 @@ public class ApplicationLogic {
         int id = mIndexListUsedEInheiten.get(i);
 
         int newid = editLebensmittel(mLebensmittelID);
-        getLebensmittelByID(newid);
         deleteLebensmittel_Einheit(newid, id);
-        changeFragment(new LebensmittelDetailFragment(), newid);
 
+        getLebensmittelByID(newid);
 
+        //changeFragment(new LebensmittelDetailFragment(), newid);
     }
 
     private void changeFragment(Fragment f, int i) {
@@ -197,9 +188,12 @@ public class ApplicationLogic {
 
     public void onClickAdd() {
         try {
-            getLebensmittelByID(editLebensmittel(mLebensmittelID));
+            int newID = editLebensmittel(mLebensmittelID);
 
-            addEinheitToLebensmittel(mLebensmittel, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
+            addEinheitToLebensmittel(newID, mGui.getEinheitenSpinner().getSelectedItem().toString(), mGui.getmMenge().getText().toString());
+            getLebensmittelByID(newID);
+
+
         } catch (Exception e) {
             String x = mGui.getmMenge().getText().toString();
             if (x.equals("")) {
@@ -210,24 +204,27 @@ public class ApplicationLogic {
         }
     }
 
-    private void addEinheitToLebensmittel(String lebensmittel, String eineit, String menge) {
+    private void addEinheitToLebensmittel(int lebensmittelID, String eineit, String menge) {
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
-        mDbHelper.writeEinheitToLebensmittel(lebensmittel, eineit, Double.parseDouble(menge));
+        mDbHelper.writeEinheitToLebensmittel(lebensmittelID, eineit, Double.parseDouble(menge));
         mDbHelper.close();
 
         initGui();
     }
 
     public void onClickSave() {
-        getLebensmittelByID(editLebensmittel(mLebensmittelID));
+        int newID = editLebensmittel(mLebensmittelID);
+
 
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
-        mDbHelper.updateLebensmittelBezeichnung(mLebensmittel, mGui.getBezeichnung().getText().toString());
+        mDbHelper.updateLebensmittelBezeichnung(newID, mGui.getBezeichnung().getText().toString());
         mDbHelper.close();
+
+        getLebensmittelByID(newID);
 
 
         mGui.setSnackbar("Neuer Name gespeichert.");

@@ -201,6 +201,11 @@ public class DataAdapter {
         writeData(sql, "writeEinheitToLebensmittel");
     }
 
+    public void writeEinheitToLebensmittel(int lebensmittelID, String einheitBezeichnung, Double menge) {
+        String sql = "insert into Lebensmittel_Einheit (LebensmittelID, EinheitID, Menge) Values ("+lebensmittelID+", (select ID From Einheit Where Einheit.Bezeichnung = \"" + einheitBezeichnung + "\"), " + menge + ")";
+        writeData(sql, "writeEinheitToLebensmittel");
+    }
+
     public void writeEinheitToLebensmittel(int lebensmittelID, int einheitID, double menge)
     {
         String sql = "insert into Lebensmittel_Einheit (LebensmittelID, EinheitID, Menge) Values ("+lebensmittelID+", "+ einheitID+", " + menge + ")";
@@ -224,8 +229,8 @@ public class DataAdapter {
          return getData(sql, "setDeleteFlagLebensmittel");
     }
 
-    public void updateLebensmittelBezeichnung(String lebensmittelOld, String lebensmittelNew) {
-        String sql = "update Lebensmittel set Bezeichnung = \""+lebensmittelNew+"\" where Bezeichnung =\""+lebensmittelOld+"\"";
+    public void updateLebensmittelBezeichnung(int oldLebensmittelID, String lebensmittelNew) {
+        String sql = "update Lebensmittel set Bezeichnung = \""+lebensmittelNew+"\" where ID =\""+oldLebensmittelID+"\"";
         writeData(sql, "setDeleteFlagLebensmittel");
     }
 
