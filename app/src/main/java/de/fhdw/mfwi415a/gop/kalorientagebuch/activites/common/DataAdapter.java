@@ -144,6 +144,17 @@ public class DataAdapter {
         return  getData(sql, "getIdzuEinheit");
     }
 
+    public Cursor getNameofEinheit(int i){
+        String sql = "select Bezeichnung from Einheit where ID=" +i ;
+        Log.d("Test Sql", sql);
+        return  getData(sql, "getNameofEinheit");
+    }
+
+    public Cursor getKurzBezofEinheit(int i){
+        String sql = "select Kurzbezeichnung from Einheit where ID=" +i ;
+        return  getData(sql, "getKurzBezofEinheit");
+    }
+
 
     public Cursor getData(String sqlQuery, String logName) {
         try {

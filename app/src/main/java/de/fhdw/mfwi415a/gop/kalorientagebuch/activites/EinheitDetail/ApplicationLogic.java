@@ -37,6 +37,8 @@ public class ApplicationLogic {
         initListener();
         currentEinheit_ID = EinheitID;
 
+        Log.d("Test EinheitID", String.valueOf(currentEinheit_ID));
+
     }
 
     private void initGui() {
@@ -91,12 +93,13 @@ public class ApplicationLogic {
         mDBHelper.createDatabase();
         mDBHelper.open();
 
-        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";",null);
+        Cursor cursor = mDBHelper.getNameofEinheit(currentEinheit_ID);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             aktuelleBezeichnung = cursor.getString(cursor.getColumnIndex("Bezeichnung"));
+            cursor.moveToNext();
         }
 
         cursor.close();
@@ -112,16 +115,16 @@ public class ApplicationLogic {
         mDBHelper.createDatabase();
         mDBHelper.open();
 
-        Cursor cursor = mDBHelper.getData("SELECT * FROM Einheit WHERE ID=\"" + currentEinheit_ID + "\";", null);
+        Cursor cursor = mDBHelper.getKurzBezofEinheit(currentEinheit_ID);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             aktuelleKurzBezeichnung = cursor.getString(cursor.getColumnIndex("Kurzbezeichnung"));
+            cursor.moveToNext();
         }
 
         cursor.close();
         mDBHelper.close();
-
 
         mGui.getmKurzText().setText(aktuelleKurzBezeichnung);
 
