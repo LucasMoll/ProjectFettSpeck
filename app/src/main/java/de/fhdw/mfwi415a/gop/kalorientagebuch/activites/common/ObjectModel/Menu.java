@@ -5,11 +5,15 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 
-public class Menu {
+public class Menu implements IEdible {
 
     private int _menuId;
     private String _menuName;
     private ArrayList<MenuItem> _menuItems = new ArrayList<>();
+
+    private String _quantityAbbreviation;
+    private String _quantityUnit;
+    private int _quantityUnitId;
 
     public Menu(int menuId) { this(menuId, ""); }
 
@@ -41,6 +45,36 @@ public class Menu {
             totalCals += mi.get_calories();
 
         return totalCals;
+    }
+
+    public String get_quantityAbbreviation()
+    {
+        return this._quantityAbbreviation;
+    }
+
+    public void set_quantityAbbreviation(String quantityAbbreviation)
+    {
+        this._quantityAbbreviation = quantityAbbreviation;
+    }
+
+    public String get_quantityUnit()
+    {
+        return this._quantityUnit;
+    }
+
+    public void set_quantityUnit(String unit)
+    {
+        this._quantityUnit = unit;
+    }
+
+    public int get_quantityUnitId()
+    {
+        return _quantityUnitId;
+    }
+
+    public void set_quantityUnitId(int quantityUnitId)
+    {
+        this._quantityUnitId = quantityUnitId;
     }
 
 
@@ -95,5 +129,15 @@ public class Menu {
     public static Menu retrieveByName(String menuName, DataAdapter dataAdapter)
     {
         return null;
+    }
+
+    @Override
+    public double get_Calories() {
+        return get_menuCalories();
+    }
+
+    @Override
+    public String get_Name() {
+        return get_menuName();
     }
 }
