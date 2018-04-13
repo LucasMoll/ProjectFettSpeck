@@ -71,8 +71,6 @@ public class ApplicationLogic {
 
     public void onListItemClicked(int i) {
         changeFragment( new KTEntryDetailFragment(), mIndexList.get(i));
-
-
     }
 
     private void setLimitText() {

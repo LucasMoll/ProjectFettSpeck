@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+
+    <TextView
+        android:id="@+id/LblktEntryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/lbl_ingredient_calories"
+        android:layout_toLeftOf="@id/lbl_ingredient_calories"
+        android:text="Entryname"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/LblKtQuantityName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LblktEntryName"
+        android:textColor="#343434"
+        android:textSize="14sp"
+        android:layout_marginTop="1dp"
+        android:layout_toStartOf="@+id/LblKTEntryDetailCalories"
+        android:layout_toLeftOf="@+id/LblKTEntryDetailCalories"
+        android:text="ingredient" />
+
+    <TextView
+        android:id="@+id/LblKTEntryDetailCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/LblKtQuantityName"
+        android:gravity="end"
+        android:text="calories"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

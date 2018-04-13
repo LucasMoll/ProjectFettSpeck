@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
 
-public class Foodstuff {
+public class Foodstuff implements IEdible {
 
     private int _foodstuffsId;
     private String _foodstuffName;
@@ -146,5 +146,16 @@ public class Foodstuff {
     @Override
     public String toString() {
         return  get_foodstuffName();
+    }
+
+
+    @Override
+    public double get_Calories() {
+        return get_kcalsPerUnit();
+    }
+
+    @Override
+    public String get_Name() {
+        return get_foodstuffName();
     }
 }
