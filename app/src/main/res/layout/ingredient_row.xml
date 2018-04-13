@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@id/lbl_ingredient_name"
+        android:layout_alignBottom="@id/lbl_ingredient_amount"
         android:gravity="end"
         android:text="calories"
         android:layout_marginRight="5dp"
@@ -67,12 +67,12 @@
         android:textColor="#000000"
         android:textStyle="bold"/>
 
-    <ImageView android:layout_width="wrap_content"
+    <!--<ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:contentDescription="arrow to detail"/>
+        android:contentDescription="arrow to detail"/>-->
 
 </RelativeLayout>
