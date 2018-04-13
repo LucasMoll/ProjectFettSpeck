@@ -1,8 +1,11 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.LebensmittelDetail;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -13,7 +16,9 @@ import java.util.zip.DeflaterOutputStream;
 
 import javax.xml.transform.dom.DOMLocator;
 
+import de.fhdw.mfwi415a.gop.kalorientagebuch.R;
 import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.common.DataAdapter;
+import de.fhdw.mfwi415a.gop.kalorientagebuch.activites.navigation.fragments.LebensmittelDetailFragment;
 
 
 public class ApplicationLogic {
@@ -168,8 +173,21 @@ public class ApplicationLogic {
 
         int newid = editLebensmittel(mLebensmittelID);
         getLebensmittelByID(newid);
-        deleteLebensmittel_Einheit(mLebensmittelID, id);
+        deleteLebensmittel_Einheit(newid, id);
+        changeFragment(new LebensmittelDetailFragment(), newid);
 
+
+    }
+
+    private void changeFragment(Fragment f, int i) {
+        Activity activity = (Activity) mContext;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("Lebensmittel_ID", i);
+        f.setArguments(bundle);
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, f).addToBackStack("tag").commit();
     }
 
     public void onClickDelete() {
