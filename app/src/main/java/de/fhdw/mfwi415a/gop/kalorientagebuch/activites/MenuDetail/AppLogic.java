@@ -210,6 +210,8 @@ public class AppLogic {
 
         ((MenuRowAdapter) mGui.getListViewIngredients().getAdapter()).add(new MenuItem(selectedFoodstuff, quantity));
 
+        _currentMenuID = RenewMenu(db);
+
         String command = String.format(Locale.US, "INSERT INTO Lebensmittel_Gericht VALUES (null, %d, %d, %d, %f)", selectedFoodstuff.get_foodstuffsId(), _currentMenuID, selectedFoodstuff.get_quantityUnitId(), quantity);
 
         db.writeData(command, "lgInsertNewIngredient");
@@ -226,12 +228,37 @@ public class AppLogic {
         mGui.getmPopUpAddIngredient().dismiss();
     }
 
+    private int RenewMenu(DataAdapter db)
+    {
+        db.writeData(String.format("INSERT INTO Gericht VALUES (null, '%s', %d)", get_menuName(), 0), "lgCreateNewMenu");
+
+        db.writeData(String.format("UPDATE Gericht SET delFlg = 1 WHERE ID = %d", _currentMenuID), "lgDeleteMenu");
+
+        Cursor cGetMaxMenuId = db.getData("SELECT MAX(ID) FROM Gericht", "lgGetMaxMenuID");
+
+        if(cGetMaxMenuId.getCount() <= 0)
+            return -1;
+
+        cGetMaxMenuId.moveToFirst();
+
+        int newMenuId = cGetMaxMenuId.getInt(0);
+
+        // copy data from old menu to the new one
+
+        db.writeData(String.format("INSERT INTO Lebensmittel_Gericht (Id, LebensmittelId, GerichtId, EinheitId, Menge) SELECT null, LebensmittelId, %d, EinheitId, Menge FROM Lebensmittel_Gericht WHERE GerichtId = %d;", newMenuId, _currentMenuID),"lgCopyMenuData");
+
+        return newMenuId;
+    }
+
     public void removeIngredient(MenuItem item)
     {
         DataAdapter da = new DataAdapter(mContext);
         da.open();
 
+        _currentMenuID = RenewMenu(da);
+
         da.writeData(String.format(Locale.US,"DELETE FROM Lebensmittel_Gericht WHERE GerichtId = %d AND LebensmittelId = %d;", _currentMenuID, item.get_foodstuff().get_foodstuffsId()), "lgRemoveIngredient");
+
 
         da.close();
     }
