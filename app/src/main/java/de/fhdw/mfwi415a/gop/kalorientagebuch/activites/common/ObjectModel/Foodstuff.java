@@ -80,7 +80,7 @@ public class Foodstuff {
         this._quantityUnitId = quantityUnitId;
     }
 
-    public static Foodstuff retrieveById(int id, DataAdapter dataAdapter)
+    public static Foodstuff retrieveById(int id, int quantityUnitID, DataAdapter dataAdapter)
     {
         Cursor cFoodstuff = dataAdapter.getData("SELECT Lebensmittel.Bezeichnung, Einheit.ID, Einheit.Bezeichnung, Einheit.Kurzbezeichnung, le.Menge FROM 'Lebensmittel'JOIN Lebensmittel_Einheit AS le, Einheit ON le.LebensmittelId = Lebensmittel.ID AND Einheit.ID = le.EinheitId WHERE Lebensmittel.ID = " + id + ";", "lgGetFoodstuff");
 
@@ -105,11 +105,11 @@ public class Foodstuff {
             if (!cFoodstuff.isNull(4)) {
 
                 // Check id of unit 1 = kcal
-                if (cFoodstuff.getDouble(1) == 1) // kcal
+                if (cFoodstuff.getInt(1) == 1) // kcal
                 {
                     kcals = cFoodstuff.getDouble(4);
                 }
-                else {
+                else if(quantityUnitID == -1 || cFoodstuff.getInt(1) == quantityUnitID) {
 
                     unitQuantity = cFoodstuff.getDouble(4);
 

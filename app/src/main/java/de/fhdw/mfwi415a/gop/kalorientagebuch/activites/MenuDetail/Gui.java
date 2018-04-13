@@ -49,6 +49,8 @@ public class Gui {
     private ConstraintLayout mClMenuDetail;
     private TextView mLblCalories;
 
+    private Button mBtnDeleteMenu;
+
     public Gui(View myView, Activity myActivity) {
         mView = myView;
         
@@ -104,9 +106,13 @@ public class Gui {
         mFabAddIngredient = mView.findViewById(R.id.fab_add_ingredient);
         mClMenuDetail = mView.findViewById(R.id.clMenuDetail);
         mLblCalories = mView.findViewById(R.id.LblMenuTotalCalories);
+        mBtnDeleteMenu = mView.findViewById(R.id.BtnDeleteMenu);
     }
 
-
+    public Button getBtnDeleteMenu()
+    {
+        return mBtnDeleteMenu;
+    }
 
     public ListView getListViewIngredients() {return mLwIngredients;}
     

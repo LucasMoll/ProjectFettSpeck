@@ -6,6 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="str_menu_deleted">%s wurde gelöscht</string>
     <string name="str_ingredient_deleted">%s wurde aus dem Gericht entfernt</string>
     <string name="str_ingredient_added">%s wurde dem Gericht hinzugefügt</string>
 
@@ -34,5 +35,11 @@
     <string name="button_neueEinheit">Neue Einheit</string>
     <string name="text_standardeinheiten">Standardeinheiten</string>
     <string name="button_alleEinheiten">Alle Einheiten</string>
+
+    //Average values
+    <string name="str_today">Heute</string>
+    <string name="str_avg_sevenDays">\u2205 7 Tage</string>
+    <string name="str_avg_fourteenDays">\u2205 14 Tage</string>
+    <string name="str_avg_thirtyDays">\u2205 30 Tage</string>
 
 </resources>

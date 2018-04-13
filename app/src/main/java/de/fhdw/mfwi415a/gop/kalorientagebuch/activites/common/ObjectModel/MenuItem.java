@@ -48,7 +48,7 @@ public class MenuItem {
 
     public static MenuItem retrieveById(int foodstuffId, int menuId, DataAdapter dataAdapter)
     {
-        Cursor cQuant = dataAdapter.getData("SELECT Menge FROM Lebensmittel_Gericht WHERE LebensmittelId = " + foodstuffId + " AND GerichtId = " + menuId + ";", "lgGetMenuItemQuantity");
+        Cursor cQuant = dataAdapter.getData("SELECT Menge, EinheitId FROM Lebensmittel_Gericht WHERE LebensmittelId = " + foodstuffId + " AND GerichtId = " + menuId + ";", "lgGetMenuItemQuantity");
 
         if(cQuant.getCount() == 0)
             return null;
@@ -60,9 +60,16 @@ public class MenuItem {
 
         double quantity = cQuant.getDouble(0);
 
+        int quantityUnitId = -1;
+
+        if(!cQuant.isNull(1))
+        {
+            quantityUnitId = cQuant.getInt(1);
+        }
+
         cQuant.close();
 
-        Foodstuff foodstuff = Foodstuff.retrieveById(foodstuffId, dataAdapter);
+        Foodstuff foodstuff = Foodstuff.retrieveById(foodstuffId, quantityUnitId, dataAdapter);
 
         MenuItem item = new MenuItem(foodstuff, quantity);
 

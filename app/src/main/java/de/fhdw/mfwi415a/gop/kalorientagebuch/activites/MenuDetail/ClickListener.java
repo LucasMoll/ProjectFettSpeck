@@ -26,6 +26,10 @@ public class ClickListener implements View.OnClickListener
                 break;
             case R.id.btnCancel:
                 mApplicationLogic.BtnCancelClicked(view);
+                break;
+            case R.id.BtnDeleteMenu:
+                mApplicationLogic.DeleteMenu();
+                break;
         }
     }
 }

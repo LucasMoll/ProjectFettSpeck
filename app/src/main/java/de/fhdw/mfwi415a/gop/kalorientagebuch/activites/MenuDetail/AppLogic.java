@@ -1,5 +1,6 @@
 package de.fhdw.mfwi415a.gop.kalorientagebuch.activites.MenuDetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -72,8 +73,24 @@ public class AppLogic {
     {
         clickListener = new ClickListener(this);
         mGui.getmFabAddIngredient().setOnClickListener(clickListener);
+        mGui.getBtnDeleteMenu().setOnClickListener(clickListener);
 
         mTouchListener = new SwipeOnTouchListener(this, mContext, mGui.getListViewIngredients());
+    }
+
+    public void DeleteMenu()
+    {
+        DataAdapter da = new DataAdapter(mContext);
+
+        da.open();
+
+        da.writeData("UPDATE Gericht SET delFlg = 1 WHERE ID = " + _currentMenuID + ";", "lgDeleteMenu");
+
+        Toast.makeText(mContext, String.format(mContext.getResources().getString(R.string.str_menu_deleted), get_menuName()), Toast.LENGTH_LONG).show();
+
+        da.close();
+
+        ((Activity)mContext).onBackPressed();
     }
 
     public void LoadMenu(int menuId) {
@@ -119,7 +136,7 @@ public class AppLogic {
                 cfoodstuff.moveToFirst();
 
                 while (!cfoodstuff.isAfterLast()) {
-                    foodstuffs.add(Foodstuff.retrieveById(cfoodstuff.getInt(idxId), mDBHelper));
+                    foodstuffs.add(Foodstuff.retrieveById(cfoodstuff.getInt(idxId), -1, mDBHelper));
                     cfoodstuff.moveToNext();
                 }
             }
