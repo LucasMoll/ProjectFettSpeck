@@ -229,7 +229,7 @@ public class ApplicationLogic {
 
     private String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = mdformat.format(calendar.getTime());
         return strDate;
     }
