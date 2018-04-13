@@ -146,7 +146,6 @@ public class DataAdapter {
 
     public Cursor getNameofEinheit(int i){
         String sql = "select Bezeichnung from Einheit where ID=" +i ;
-        Log.d("Test Sql", sql);
         return  getData(sql, "getNameofEinheit");
     }
 

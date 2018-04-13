@@ -33,9 +33,9 @@ public class ApplicationLogic {
     public ApplicationLogic(Gui gui, Context context, int EinheitID) {
         mGui = gui;
         mContext = context;
+        currentEinheit_ID = EinheitID;
         initGui();
         initListener();
-        currentEinheit_ID = EinheitID;
 
         Log.d("Test EinheitID", String.valueOf(currentEinheit_ID));
 
@@ -78,8 +78,8 @@ public class ApplicationLogic {
         String textBezeichnung;
         String textKurzbezeichnung;
 
-        textBezeichnung = "Aktuelle Bezeichnung:" + aktuelleBezeichnung;
-        textKurzbezeichnung = "Aktuelle Bezeichnung:" + aktuelleKurzBezeichnung;
+        textBezeichnung = "Aktuelle Bezeichnung: " + aktuelleBezeichnung;
+        textKurzbezeichnung = "Aktuelle Bezeichnung: " + aktuelleKurzBezeichnung;
 
         mGui.getmBezeichnungText().setText(textBezeichnung);
         mGui.getmKurzText().setText(textKurzbezeichnung);
@@ -136,7 +136,6 @@ public class ApplicationLogic {
         delFlg = 0;
 
         String insert1 = "UPDATE Einheit SET Bezeichnung=\""+ mGui.getmBezeichnung().getText().toString() +"\", Kurzbezeichnung=\""+ mGui.getmKurzBezeichnung().getText().toString() +"\", delFlg=\""+ delFlg + "\"WHERE ID =" + currentEinheit_ID;
-        Log.d("Test", insert1);
         DataAdapter mDbHelper = new DataAdapter(mContext);
         mDbHelper.createDatabase();
         mDbHelper.open();
